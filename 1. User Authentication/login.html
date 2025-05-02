@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.links {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.links a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  display: none;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="login-form">
+      <h2>Login</h2>
+      <form id="login-form">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          <span id="email-error" class="error"></span>
+        </div>
+        
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required>
+          <span id="password-error" class="error"></span>
+        </div>
+
+        <button type="submit" class="btn">Login</button>
+      </form>
+
+      <div class="links">
+        <a href="forgot-password.html">Forgot Password?</a>
+        <a href="signup.html">Don’t have an account? Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+    <script>
+      document.getElementById('login-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  // Clear previous error messages
+  document.getElementById('email-error').style.display = 'none';
+  document.getElementById('password-error').style.display = 'none';
+
+  // Validate inputs
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+
+  let isValid = true;
+
+  // Validate email
+  if (!validateEmail(email)) {
+    document.getElementById('email-error').style.display = 'block';
+    document.getElementById('email-error').innerText = 'Please enter a valid email address.';
+    isValid = false;
+  }
+
+  // Validate password
+  if (password.length < 6) {
+    document.getElementById('password-error').style.display = 'block';
+    document.getElementById('password-error').innerText = 'Password must be at least 6 characters.';
+    isValid = false;
+  }
+
+  // If form is valid, submit it (you can connect it to a backend here)
+  if (isValid) {
+    alert('Login successful!');
+    // Here you would send the form data to your backend server
+  }
+});
+
+// Email validation function
+function validateEmail(email) {
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailPattern.test(email);
+}
+    </script>
+</body>
+</html>
