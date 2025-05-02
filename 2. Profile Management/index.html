@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>View Profile</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.preview {
+  margin-top: 15px;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+button {
+  margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  background-color: #3498db;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+input {
+  width: 90%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+
+.error-msg {
+  color: red;
+  font-size: 0.9em;
+}
+
+  </style>
+</head>
+<body>
+  <div class="profile-container">
+    <img src="avatar.png" alt="Avatar" id="profileAvatar" class="avatar" />
+    <h2 id="profileName">Sakif Khan</h2>
+    <p id="profileEmail">sakif@email.com</p>
+    <p id="profilePhone">+880123456789</p>
+
+    <div class="buttons">
+      <button onclick="openEditModal()">Edit Profile</button>
+      <button onclick="openAvatarUpload()">Change Avatar</button>
+      <button onclick="openPasswordModal()">Update Password</button>
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div class="modal" id="editModal">
+    <div class="modal-content">
+      <h3>Edit Profile</h3>
+      <input type="text" id="editName" placeholder="Full Name" />
+      <input type="email" id="editEmail" placeholder="Email" />
+      <input type="text" id="editPhone" placeholder="Phone Number" />
+      <p id="editError" class="error-msg"></p>
+      <button onclick="saveProfile()">Save Changes</button>
+      <button onclick="closeModal('editModal')">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Change Avatar Modal -->
+  <div class="modal" id="avatarModal">
+    <div class="modal-content">
+      <h3>Change Avatar</h3>
+      <input type="file" accept="image/*" onchange="previewAvatar(event)" />
+      <img id="avatarPreview" class="avatar preview" />
+      <button onclick="setAvatar()">Set as Profile Picture</button>
+      <button onclick="closeModal('avatarModal')">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Update Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <h3>Update Password</h3>
+      <input type="password" placeholder="Current Password" />
+      <input type="password" placeholder="New Password" />
+      <input type="password" placeholder="Confirm New Password" />
+      <button>Update</button>
+      <button onclick="closeModal('passwordModal')">Cancel</button>
+    </div>
+  </div>
+
+ <script>
+    function openEditModal() {
+  document.getElementById("editModal").style.display = "flex";
+  document.getElementById("editName").value = document.getElementById("profileName").textContent;
+  document.getElementById("editEmail").value = document.getElementById("profileEmail").textContent;
+  document.getElementById("editPhone").value = document.getElementById("profilePhone").textContent;
+  document.getElementById("editError").textContent = "";
+}
+
+function openAvatarUpload() {
+  document.getElementById("avatarModal").style.display = "flex";
+}
+
+function openPasswordModal() {
+  document.getElementById("passwordModal").style.display = "flex";
+}
+
+function closeModal(id) {
+  document.getElementById(id).style.display = "none";
+}
+
+// Validation and Save
+function saveProfile() {
+  const name = document.getElementById("editName").value.trim();
+  const email = document.getElementById("editEmail").value.trim();
+  const phone = document.getElementById("editPhone").value.trim();
+  const error = document.getElementById("editError");
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^\+?[0-9]{10,14}$/;
+
+  if (!name || !email || !phone) {
+    error.textContent = "All fields are required.";
+    return;
+  }
+
+  if (!emailRegex.test(email)) {
+    error.textContent = "Invalid email format.";
+    return;
+  }
+
+  if (!phoneRegex.test(phone)) {
+    error.textContent = "Invalid phone number.";
+    return;
+  }
+
+  document.getElementById("profileName").textContent = name;
+  document.getElementById("profileEmail").textContent = email;
+  document.getElementById("profilePhone").textContent = phone;
+
+  closeModal("editModal");
+}
+
+// Avatar upload
+function previewAvatar(event) {
+  const preview = document.getElementById("avatarPreview");
+  preview.src = URL.createObjectURL(event.target.files[0]);
+}
+
+function setAvatar() {
+  const preview = document.getElementById("avatarPreview").src;
+  if (preview) {
+    document.getElementById("profileAvatar").src = preview;
+  }
+  closeModal("avatarModal");
+}
+
+ </script>
+</body>
+</html>

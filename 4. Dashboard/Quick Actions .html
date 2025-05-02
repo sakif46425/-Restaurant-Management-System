@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Analytics</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+    .card {
+      padding: 20px;
+      background-color: #f0f0f0;
+      text-align: center;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .card:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
+</head>
+<body style="font-family:sans-serif;">
+  <h2>Simple Analytics</h2>
+
+  <p>Date Filter: <input type="date" id="startDate"> to <input type="date" id="endDate"></p>
+
+  <p>Status:
+    <select id="statusSelect">
+      <option value="">All</option>
+      <option value="active">Active</option>
+      <option value="done">Done</option>
+    </select>
+  </p>
+
+  <button onclick="exportData('CSV')">CSV</button>
+  <button onclick="exportData('PDF')">PDF</button>
+
+  <h3>Line Chart</h3>
+  <canvas id="lineChart" width="300" height="200"></canvas>
+
+  <h3>Bar Chart</h3>
+  <canvas id="barChart" width="300" height="200"></canvas>
+
+  <h3>Donut Chart</h3>
+  <canvas id="donutChart" width="300" height="200"></canvas>
+
+  <h3>Quick Actions</h3>
+  <div class="quick-actions">
+    <div class="card" onclick="handleAction('Start New Campaign')">🚀 Start New Campaign</div>
+    <div class="card" onclick="handleAction('Import Data')">📥 Import Data</div>
+    <div class="card" onclick="handleAction('Configure Settings')">🛠 Configure Settings</div>
+    <div class="card" onclick="handleAction('Search Recent Tasks')">🔍 Search Recent Tasks</div>
+    <div class="card" onclick="handleAction('Generate Invoice')">🧾 Generate Invoice</div>
+  </div>
+
+  <script>
+    // Chart.js charts
+    new Chart(document.getElementById("lineChart"), {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed'],
+        datasets: [{
+          label: 'Activity',
+          data: [5, 10, 7],
+          borderColor: 'blue',
+          fill: false
+        }]
+      }
+    });
+
+    new Chart(document.getElementById("barChart"), {
+      type: 'bar',
+      data: {
+        labels: ['W1', 'W2'],
+        datasets: [{
+          label: 'Tasks',
+          data: [3, 6],
+          backgroundColor: 'green'
+        }]
+      }
+    });
+
+    new Chart(document.getElementById("donutChart"), {
+      type: 'doughnut',
+      data: {
+        labels: ['New', 'Old'],
+        datasets: [{
+          data: [60, 40],
+          backgroundColor: ['orange', 'gray']
+        }]
+      }
+    });
+
+    // Quick Actions
+    function handleAction(action) {
+      alert("You clicked: " + action);
+    }
+
+    // Export validation
+    function exportData(type) {
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+      if (!startDate || !endDate) {
+        alert("Please select a valid date range before exporting " + type);
+      } else {
+        alert(type + " Exported Successfully!");
+      }
+    }
+  </script>
+</body>
+</html>

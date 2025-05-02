@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Analytics Page</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      display: flex;
+    }
+    .sidebar {
+      width: 200px;
+      background: #333;
+      color: white;
+      padding: 10px;
+      height: 100vh;
+    }
+    .sidebar a {
+      color: white;
+      display: block;
+      margin: 10px 0;
+      text-decoration: none;
+    }
+    .main {
+      padding: 20px;
+      flex: 1;
+    }
+    .chart-box {
+      margin-bottom: 20px;
+    }
+    .filters {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h3>Menu</h3>
+    <a href="#">Dashboard</a>
+    <a href="#">Reports</a>
+    <a href="#">Users</a>
+    <a href="#">Settings</a>
+  </div>
+  <div class="main">
+    <h2>Analytics Overview</h2>
+    <div class="filters">
+      <label>Date: <input type="date"></label>
+      <label>To: <input type="date"></label>
+      <select>
+        <option>Status</option>
+        <option>Active</option>
+        <option>Completed</option>
+      </select>
+      <button onclick="alert('Exporting CSV')">CSV</button>
+      <button onclick="alert('Exporting PDF')">PDF</button>
+    </div>
+    <div class="chart-box">
+      <canvas id="lineChart"></canvas>
+    </div>
+    <div class="chart-box">
+      <canvas id="barChart"></canvas>
+    </div>
+    <div class="chart-box">
+      <canvas id="donutChart"></canvas>
+    </div>
+  </div>
+  <script>
+    new Chart(document.getElementById("lineChart"), {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed'],
+        datasets: [{
+          label: 'Activity',
+          data: [10, 20, 15],
+          borderColor: 'blue'
+        }]
+      }
+    });
+
+    new Chart(document.getElementById("barChart"), {
+      type: 'bar',
+      data: {
+        labels: ['Week 1', 'Week 2'],
+        datasets: [{
+          label: 'Tasks Done',
+          data: [5, 7],
+          backgroundColor: 'green'
+        }]
+      }
+    });
+
+    new Chart(document.getElementById("donutChart"), {
+      type: 'doughnut',
+      data: {
+        labels: ['New', 'Returning'],
+        datasets: [{
+          data: [70, 30],
+          backgroundColor: ['orange', 'gray']
+        }]
+      }
+    });
+  </script>
+</body>
+</html>
