@@ -3,153 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>Student Dashboard</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #f4f4f9;
+      background-color: #f4f4f4;
     }
-    .header {
+
+    header {
+      background-color: #4A90E2;
+      color: white;
+      padding: 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #2c3e50;
-      color: #fff;
-      padding: 1rem 2rem;
     }
-    .header .left {
-      font-size: 1.5rem;
-      font-weight: 600;
+
+    nav {
+      background-color: #fff;
+      padding: 15px;
+      width: 200px;
+      height: 100vh;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      margin-top: 60px;
     }
-    .header .right {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+
+    nav ul {
+      list-style: none;
+      padding: 0;
     }
-    .header input[type="text"] {
-      padding: 0.5rem;
-      border: none;
-      border-radius: 5px;
+
+    nav ul li {
+      margin: 20px 0;
     }
-    .dashboard {
-      padding: 2rem;
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
     }
-    .widgets, .quick-actions {
-      display: grid;
-      gap: 1rem;
+
+    .main {
+      margin-left: 220px;
+      padding: 20px;
     }
-    .widgets {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      margin-bottom: 2rem;
-    }
-    .widget, .action {
+
+    .card {
       background: white;
-      padding: 1rem;
-      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       cursor: pointer;
-      transition: transform 0.2s ease;
+      transition: 0.3s;
     }
-    .widget:hover, .action:hover {
-      transform: scale(1.02);
+
+    .card:hover {
+      background-color: #e8f0fe;
     }
-    .widget i, .action i {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      display: block;
+
+    .card h3 {
+      margin: 0;
     }
-    .dropdown {
-      position: relative;
+
+    .notification {
+      font-size: 20px;
+      cursor: pointer;
     }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      background-color: #fff;
-      min-width: 150px;
-      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-      z-index: 1;
-      border-radius: 5px;
-      overflow: hidden;
+
+    .form-section {
+      margin-top: 30px;
     }
-    .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-    }
-    .dropdown-content a:hover {
-      background-color: #f1f1f1;
-    }
-    .dropdown:hover .dropdown-content {
-      display: block;
+
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      max-width: 400px;
     }
   </style>
-  <script>
-    function validateQuickAction(action) {
-      const validActions = ['Add New Task', 'Schedule Event', 'Send Report'];
-      if (!validActions.includes(action)) {
-        alert('Invalid action selected!');
-        return false;
-      }
-      alert('Executing: ' + action);
-      return true;
-    }
-  </script>
 </head>
 <body>
-  <div class="header">
-    <div class="left">📘 MyDashboard</div>
-    <div class="right">
-      <input type="text" placeholder="Search...">
-      <div class="dropdown">
-        <span>👤</span>
-        <div class="dropdown-content">
-          <a href="#">Settings</a>
-          <a href="#">Logout</a>
-        </div>
-      </div>
-      <span>🔔</span>
+  <header>
+    <div><strong>📘 Dashboard</strong></div>
+    <div>Welcome, Student 🔔 <span class="notification" onclick="alert('No new notifications')">🔔</span></div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="Home Dashboard.html">🏠 Home</a></li>
+      <li><a href="Analytics overview.html">📊 Analytics</a></li>
+      <li><a href="Quick Actions .html">⚡ Quick Actions</a></li>
+      <li><a href="#">⚙️ Settings</a></li>
+      <li><a href="#">🚪 Logout</a></li>
+    </ul>
+  </nav>
+
+  <div class="main">
+    <div class="card" onclick="alert('Opening My Courses...')">
+      <h3>📚 My Courses</h3>
+    </div>
+    <div class="card" onclick="alert('Opening Upcoming Tasks...')">
+      <h3>🗓️ Upcoming Tasks</h3>
+    </div>
+    <div class="card" onclick="alert('Opening Completed Tasks...')">
+      <h3>✅ Completed Tasks</h3>
+    </div>
+    <div class="card" onclick="alert('Opening Progress Overview...')">
+      <h3>📈 Progress Overview</h3>
+    </div>
+
+    <div class="form-section">
+      <h3>📥 Add New Task </h3>
+      <form id="taskForm">
+        <input type="text" id="taskName" placeholder="Enter task name" required><br>
+        <input type="date" id="taskDate" required><br>
+        <button type="submit">Add Task</button>
+      </form>
     </div>
   </div>
 
-  <div class="dashboard">
-    <div class="widgets">
-      <div class="widget" onclick="alert('Viewing Total Activities')">
-        <i>📊</i>
-        <strong>Total Activities Today</strong>
-      </div>
-      <div class="widget" onclick="alert('Viewing Active Sessions')">
-        <i>⏱</i>
-        <strong>Active Sessions</strong>
-      </div>
-      <div class="widget" onclick="alert('Viewing Completed Tasks')">
-        <i>✅</i>
-        <strong>Completed Tasks</strong>
-      </div>
-      <div class="widget" onclick="alert('Viewing Notifications')">
-        <i>🔔</i>
-        <strong>New Notifications</strong>
-      </div>
-    </div>
+  <script>
+    document.getElementById('taskForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const taskName = document.getElementById('taskName').value.trim();
+      const taskDate = document.getElementById('taskDate').value;
 
-    <h3>Quick Actions</h3>
-    <div class="quick-actions">
-      <div class="action" onclick="validateQuickAction('Add New Task')">
-        <i>➕</i>
-        Add New Task
-      </div>
-      <div class="action" onclick="validateQuickAction('Schedule Event')">
-        <i>📅</i>
-        Schedule Event
-      </div>
-      <div class="action" onclick="validateQuickAction('Send Report')">
-        <i>📤</i>
-        Send Report
-      </div>
-    </div>
-  </div>
+      if (!taskName) {
+        alert("Task name can't be empty.");
+        return;
+      }
+      if (!taskDate) {
+        alert("Please select a date.");
+        return;
+      }
+      alert(`Task '${taskName}' added for ${taskDate}`);
+      this.reset();
+    });
+  </script>
 </body>
 </html>
