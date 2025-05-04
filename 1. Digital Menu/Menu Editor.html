@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Editor</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+    }
+    .sidebar {
+      width: 200px;
+      background-color: #f4f4f4;
+      padding: 10px;
+      border-right: 1px solid #ccc;
+    }
+    .sidebar h3 {
+      margin-top: 0;
+    }
+    .main {
+      flex: 1;
+      padding: 20px;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .item-card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #fff;
+    }
+    .item-card input[type="text"], .item-card input[type="number"] {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 5px;
+    }
+    .item-card input[type="file"] {
+      margin-bottom: 5px;
+    }
+    .btn {
+      padding: 5px 10px;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+    .btn-delete {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+    }
+    .btn-save, .btn-sync {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h3>Categories</h3>
+    <ul id="categoryList">
+      <li>Appetizers</li>
+      <li>Mains</li>
+      <li>Desserts</li>
+    </ul>
+    <button onclick="addCategory()">➕ Add Category</button>
+  </div>
+  <div class="main">
+    <div class="top-bar">
+      <button class="btn btn-save" onclick="saveChanges()">🔄 Save Changes</button>
+      <button class="btn btn-sync" onclick="syncNow()">☁️ Sync Now</button>
+    </div>
+
+    <div id="menuItems">
+      <!-- Example Item Card -->
+      <div class="item-card">
+        <input type="text" placeholder="Item Name" id="itemName">
+        <input type="number" placeholder="Price" id="itemPrice">
+        <label>
+          <input type="checkbox" id="seasonal"> Seasonal Availability
+        </label>
+        <input type="file" id="itemPhoto">
+        <button class="btn btn-delete" onclick="deleteItem(this)">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function addCategory() {
+      const category = prompt("Enter new category name:");
+      if (category) {
+        const ul = document.getElementById("categoryList");
+        const li = document.createElement("li");
+        li.textContent = category;
+        ul.appendChild(li);
+      }
+    }
+
+    function saveChanges() {
+      const name = document.getElementById("itemName").value.trim();
+      const price = document.getElementById("itemPrice").value.trim();
+
+      if (!name || !price || isNaN(price)) {
+        alert("Please enter a valid item name and numeric price.");
+        return;
+      }
+      alert("Changes saved successfully!");
+    }
+
+    function syncNow() {
+      alert("Menu synced across all devices!");
+    }
+
+    function deleteItem(btn) {
+      const card = btn.parentElement;
+      card.remove();
+    }
+  </script>
+</body>
+</html>

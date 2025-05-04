@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .category-manager {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .category {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: #eee;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      cursor: grab;
+    }
+    .category input[type="text"] {
+      width: 60%;
+      padding: 5px;
+    }
+    .controls button {
+      margin-left: 5px;
+    }
+    .btn {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .btn-add {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+    }
+    .btn-save {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      margin-top: 10px;
+      float: right;
+    }
+    .btn-delete {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="category-manager">
+    <h2>📂 Category Manager</h2>
+    <div id="categoryList">
+      <div class="category" draggable="true">
+        <input type="text" value="Appetizers">
+        <div class="controls">
+          <button class="btn-delete" onclick="deleteCategory(this)">🗑️</button>
+        </div>
+      </div>
+      <div class="category" draggable="true">
+        <input type="text" value="Mains">
+        <div class="controls">
+          <button class="btn-delete" onclick="deleteCategory(this)">🗑️</button>
+        </div>
+      </div>
+      <div class="category" draggable="true">
+        <input type="text" value="Desserts">
+        <div class="controls">
+          <button class="btn-delete" onclick="deleteCategory(this)">🗑️</button>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-add" onclick="addCategory()">➕ Add New Category</button>
+    <button class="btn btn-save" onclick="saveOrder()">🔄 Save Category Order</button>
+  </div>
+
+  <script>
+    let draggedItem;
+
+    document.querySelectorAll('.category').forEach(item => {
+      item.addEventListener('dragstart', () => {
+        draggedItem = item;
+      });
+
+      item.addEventListener('dragover', e => {
+        e.preventDefault();
+        const container = document.getElementById('categoryList');
+        const children = Array.from(container.children);
+        const indexDragged = children.indexOf(draggedItem);
+        const indexTarget = children.indexOf(item);
+        if (indexDragged < indexTarget) {
+          container.insertBefore(draggedItem, item.nextSibling);
+        } else {
+          container.insertBefore(draggedItem, item);
+        }
+      });
+    });
+
+    function addCategory() {
+      const container = document.getElementById('categoryList');
+      const div = document.createElement('div');
+      div.className = 'category';
+      div.draggable = true;
+      div.innerHTML = `
+        <input type="text" value="New Category">
+        <div class="controls">
+          <button class="btn-delete" onclick="deleteCategory(this)">🗑️</button>
+        </div>`;
+
+      div.addEventListener('dragstart', () => {
+        draggedItem = div;
+      });
+      div.addEventListener('dragover', e => {
+        e.preventDefault();
+        const children = Array.from(container.children);
+        const indexDragged = children.indexOf(draggedItem);
+        const indexTarget = children.indexOf(div);
+        if (indexDragged < indexTarget) {
+          container.insertBefore(draggedItem, div.nextSibling);
+        } else {
+          container.insertBefore(draggedItem, div);
+        }
+      });
+
+      container.appendChild(div);
+    }
+
+    function deleteCategory(btn) {
+      const div = btn.closest('.category');
+      div.remove();
+    }
+
+    function saveOrder() {
+      alert("Category order saved successfully!");
+    }
+  </script>
+</body>
+</html>

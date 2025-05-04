@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weekly Roster</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .top-bar {
+      margin-bottom: 20px;
+    }
+    .top-bar select, .top-bar button {
+      margin-right: 10px;
+    }
+    .roster-grid {
+      display: grid;
+      grid-template-columns: 150px repeat(7, 1fr);
+      border: 1px solid #ccc;
+    }
+    .header-cell, .staff-cell {
+      background: #f0f0f0;
+      font-weight: bold;
+      text-align: center;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    .time-slot {
+      height: 100px;
+      border: 1px solid #ccc;
+      padding: 5px;
+      background: #fff;
+      overflow-y: auto;
+    }
+    .draggable {
+      background-color: #87CEEB;
+      padding: 5px;
+      margin: 5px 0;
+      cursor: grab;
+      border-radius: 4px;
+    }
+    .draggable:active {
+      cursor: grabbing;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <label for="week">Week:</label>
+    <select id="week">
+      <option>May 6 - May 12</option>
+      <option>May 13 - May 19</option>
+    </select>
+    <button onclick="window.print()">Print</button>
+    <button onclick="exportCSV()">Export CSV</button>
+  </div>
+
+  <div class="roster-grid" id="rosterGrid">
+    <!-- Header row -->
+    <div class="header-cell">Staff / Day</div>
+    <div class="header-cell">Monday</div>
+    <div class="header-cell">Tuesday</div>
+    <div class="header-cell">Wednesday</div>
+    <div class="header-cell">Thursday</div>
+    <div class="header-cell">Friday</div>
+    <div class="header-cell">Saturday</div>
+    <div class="header-cell">Sunday</div>
+
+    <!-- Staff rows -->
+    <div class="staff-cell">John - Waiter</div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+    <div class="staff-cell">Sara - Chef</div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="time-slot" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  </div>
+
+  <br><br>
+  <h3>Available Shifts</h3>
+  <div id="shifts">
+    <div class="draggable" draggable="true" ondragstart="drag(event)" id="shift1">Morning Shift</div>
+    <div class="draggable" draggable="true" ondragstart="drag(event)" id="shift2">Afternoon Shift</div>
+    <div class="draggable" draggable="true" ondragstart="drag(event)" id="shift3">Night Shift</div>
+  </div>
+
+  <script>
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      const draggedElem = document.getElementById(data);
+
+      // Validation: allow only 1 shift per slot
+      if (ev.target.classList.contains("time-slot")) {
+        if (ev.target.children.length === 0) {
+          ev.target.appendChild(draggedElem.cloneNode(true)); // Clone to allow re-use
+        } else {
+          alert("Only one shift allowed per time slot.");
+        }
+      }
+    }
+
+    function exportCSV() {
+      let csv = 'Staff/Day,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday\n';
+      const grid = document.getElementById('rosterGrid');
+      const rows = grid.children.length / 8;
+
+      for (let i = 1; i < rows; i++) {
+        let row = grid.children[i * 8].innerText;
+        for (let j = 1; j < 8; j++) {
+          let slot = grid.children[i * 8 + j];
+          row += ',' + (slot.children[0] ? slot.children[0].innerText : '');
+        }
+        csv += row + '\n';
+      }
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'roster.csv';
+      link.click();
+    }
+  </script>
+
+</body>
+</html>

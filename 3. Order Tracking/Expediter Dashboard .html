@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expediter Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+    }
+    .filters {
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .filters label {
+      margin: 0 10px;
+    }
+    .summary {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .order-card {
+      background: #fff;
+      border-left: 10px solid gray;
+      margin: 10px;
+      padding: 15px;
+      width: 220px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .green { border-left-color: green; }
+    .yellow { border-left-color: orange; }
+    .red { border-left-color: red; }
+  </style>
+</head>
+<body>
+
+<h1>Expediter Dashboard</h1>
+
+<div class="filters">
+  <label><input type="checkbox" id="filterDelayed"> Show only delayed (🔴)</label>
+  <label><input type="checkbox" id="groupCourse"> Group by Course</label>
+  <label><input type="checkbox" id="groupStation"> Group by Station</label>
+</div>
+
+<div class="summary" id="summary"></div>
+<div class="dashboard" id="orderDashboard"></div>
+
+<script>
+  const orders = [
+    { ticketID: 301, table: 2, course: 'Appetizer', station: 'A', firedTime: new Date(Date.now() - 4 * 60000), status: 'In Progress' },
+    { ticketID: 302, table: 3, course: 'Main', station: 'B', firedTime: new Date(Date.now() - 12 * 60000), status: 'In Progress' },
+    { ticketID: 303, table: 4, course: 'Appetizer', station: 'A', firedTime: new Date(Date.now() - 9 * 60000), status: 'Ready' },
+    { ticketID: 304, table: 5, course: 'Main', station: 'B', firedTime: new Date(Date.now() - 2 * 60000), status: 'In Progress' },
+    { ticketID: 305, table: 6, course: 'Appetizer', station: 'A', firedTime: new Date(Date.now() - 11 * 60000), status: 'Ready' }
+  ];
+
+  function getColorClass(minutes) {
+    if (minutes < 5) return 'green';
+    if (minutes < 10) return 'yellow';
+    return 'red';
+  }
+
+  function renderDashboard() {
+    const filterDelayed = document.getElementById('filterDelayed').checked;
+    const groupByCourse = document.getElementById('groupCourse').checked;
+    const groupByStation = document.getElementById('groupStation').checked;
+
+    const container = document.getElementById('orderDashboard');
+    container.innerHTML = '';
+
+    const filteredOrders = orders.filter(order => {
+      const minutes = Math.floor((Date.now() - order.firedTime.getTime()) / 60000);
+      if (filterDelayed && minutes <= 10) return false;
+      return true;
+    });
+
+    let total = orders.length;
+    let inProgress = orders.filter(o => o.status === 'In Progress').length;
+    let ready = orders.filter(o => o.status === 'Ready').length;
+
+    document.getElementById('summary').textContent = `Total: ${total} | In Progress: ${inProgress} | Ready: ${ready}`;
+
+    let displayList = filteredOrders;
+    if (groupByCourse || groupByStation) {
+      const groups = {};
+      displayList.forEach(order => {
+        let key = groupByCourse ? order.course : '';
+        key += groupByStation ? ('-' + order.station) : '';
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(order);
+      });
+      Object.entries(groups).forEach(([group, groupOrders]) => {
+        const groupTitle = document.createElement('h3');
+        groupTitle.textContent = `Group: ${group}`;
+        container.appendChild(groupTitle);
+
+        groupOrders.forEach(renderOrderCard);
+      });
+    } else {
+      displayList.forEach(renderOrderCard);
+    }
+  }
+
+  function renderOrderCard(order) {
+    const minutes = Math.floor((Date.now() - order.firedTime.getTime()) / 60000);
+    const colorClass = getColorClass(minutes);
+
+    const card = document.createElement('div');
+    card.className = `order-card ${colorClass}`;
+    card.innerHTML = `
+      <strong>Ticket:</strong> ${order.ticketID}<br>
+      <strong>Table:</strong> ${order.table}<br>
+      <strong>Course:</strong> ${order.course}<br>
+      <strong>Status:</strong> ${order.status}<br>
+      <strong>Elapsed:</strong> ${minutes} min
+    `;
+    document.getElementById('orderDashboard').appendChild(card);
+  }
+
+  document.getElementById('filterDelayed').addEventListener('change', renderDashboard);
+  document.getElementById('groupCourse').addEventListener('change', renderDashboard);
+  document.getElementById('groupStation').addEventListener('change', renderDashboard);
+
+  renderDashboard();
+  setInterval(renderDashboard, 60000);
+</script>
+
+</body>
+</html>

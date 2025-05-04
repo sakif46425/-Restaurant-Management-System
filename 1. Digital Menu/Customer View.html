@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer View</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      width: 60%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .filters label {
+      margin-right: 10px;
+    }
+    .tabs {
+      margin-top: 20px;
+    }
+    .category {
+      margin-bottom: 30px;
+    }
+    .category h3 {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    .item-card {
+      background-color: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .item-card img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    .item-info {
+      flex-grow: 1;
+    }
+    .tags {
+      font-size: 12px;
+      color: #555;
+    }
+    .live-status {
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <input type="text" placeholder="🔍 Search menu..." onkeyup="filterItems()">
+    <div class="filters">
+      <label><input type="checkbox" onchange="filterItems()" value="Vegan"> Vegan</label>
+      <label><input type="checkbox" onchange="filterItems()" value="Gluten-Free"> Gluten-Free</label>
+      <label><input type="checkbox" onchange="filterItems()" value="Spicy"> Spicy</label>
+    </div>
+  </header>
+
+  <div class="tabs" id="menu">
+    <div class="category" data-category="Appetizers">
+      <h3>Appetizers</h3>
+      <div class="item-card" data-tags="Vegan">
+        <img src="https://via.placeholder.com/60" alt="Dish">
+        <div class="item-info">
+          <div><strong>Spring Rolls</strong></div>
+          <div class="tags">Vegan</div>
+          <div>$5.99</div>
+          <div class="desc">Crispy rolls with veggies</div>
+        </div>
+      </div>
+    </div>
+    <div class="category" data-category="Mains">
+      <h3>Mains</h3>
+      <div class="item-card" data-tags="Gluten-Free Spicy">
+        <img src="https://via.placeholder.com/60" alt="Dish">
+        <div class="item-info">
+          <div><strong>Grilled Chicken</strong></div>
+          <div class="tags">Gluten-Free, Spicy</div>
+          <div>$12.99</div>
+          <div class="desc">Chicken breast with herbs</div>
+        </div>
+      </div>
+    </div>
+    <div class="category" data-category="Desserts">
+      <h3>Desserts</h3>
+      <div class="item-card">
+        <img src="https://via.placeholder.com/60" alt="Dish">
+        <div class="item-info">
+          <div><strong>Chocolate Cake</strong></div>
+          <div class="tags">Vegetarian</div>
+          <div>$6.49</div>
+          <div class="desc">Rich and moist chocolate cake</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="live-status">✅ Updated just now</div>
+
+  <script>
+    function filterItems() {
+      const searchText = document.querySelector('input[type="text"]').value.toLowerCase();
+      const checkboxes = document.querySelectorAll('.filters input[type="checkbox"]');
+      const activeTags = Array.from(checkboxes).filter(c => c.checked).map(c => c.value);
+
+      const cards = document.querySelectorAll('.item-card');
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const tags = card.getAttribute('data-tags') || '';
+        const matchesSearch = text.includes(searchText);
+        const matchesTags = activeTags.every(tag => tags.includes(tag));
+
+        if (matchesSearch && matchesTags) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
