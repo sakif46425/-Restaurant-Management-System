@@ -4,88 +4,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up</title>
-<style>
-    /* Keep the same CSS styles as the Login screen to maintain consistency */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f7fc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f3f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-.container {
-  width: 100%;
-  max-width: 400px;
-}
+    .container {
+      width: 100%;
+      max-width: 400px;
+    }
 
-.signup-form {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    .signup-form {
+      background-color: #fcfcfc;
+      padding: 50px;
+      border-radius: 50px;
+      box-shadow: 0 0 10px rgba(3, 3, 3, 0.1);
+    }
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-.input-group {
-  margin-bottom: 15px;
-}
+    .input-group {
+      margin-bottom: 20px;
+    }
 
-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-top: 5px;
-}
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #0b0707;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
 
-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #007BFF;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #3b5ec5;
+      color: #fdfdfd;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
 
-button:hover {
-  background-color: #0056b3;
-}
+    button:hover {
+      background-color: #3f9b56;
+    }
 
-.links {
-  text-align: center;
-  margin-top: 20px;
-}
+    .links {
+      text-align: center;
+      margin-top: 25px;
+    }
 
-.links a {
-  color: #007BFF;
-  text-decoration: none;
-}
+    .links a {
+      color: #4c46be;
+      text-decoration: none;
+    }
 
-.links a:hover {
-  text-decoration: underline;
-}
+    .links a:hover {
+      text-decoration: underline;
+    }
 
-.error {
-  color: red;
-  font-size: 12px;
-  display: none;
-}
-
-</style>
+    .error {
+      color: red;
+      font-size: 12px;
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -124,67 +122,64 @@ button:hover {
       </div>
     </div>
   </div>
-<script>
+
+  <script>
     document.getElementById('signup-form').addEventListener('submit', function(event) {
-  event.preventDefault();
+      event.preventDefault();
 
-  // Clear previous error messages
-  document.getElementById('name-error').style.display = 'none';
-  document.getElementById('email-error').style.display = 'none';
-  document.getElementById('password-error').style.display = 'none';
-  document.getElementById('confirm-password-error').style.display = 'none';
+      // Clear previous error messages
+      document.getElementById('name-error').style.display = 'none';
+      document.getElementById('email-error').style.display = 'none';
+      document.getElementById('password-error').style.display = 'none';
+      document.getElementById('confirm-password-error').style.display = 'none';
 
-  // Get form input values
-  const fullName = document.getElementById('full-name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value.trim();
-  const confirmPassword = document.getElementById('confirm-password').value.trim();
+      // Get form input values
+      const fullName = document.getElementById('full-name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirm-password').value.trim();
 
-  let isValid = true;
+      let isValid = true;
 
-  // Validate Full Name
-  if (fullName === "") {
-    document.getElementById('name-error').style.display = 'block';
-    document.getElementById('name-error').innerText = 'Full name is required.';
-    isValid = false;
-  }
+      // Validate Full Name
+      if (fullName === "") {
+        document.getElementById('name-error').style.display = 'block';
+        document.getElementById('name-error').innerText = 'Full name is required.';
+        isValid = false;
+      }
 
-  // Validate Email
-  if (!validateEmail(email)) {
-    document.getElementById('email-error').style.display = 'block';
-    document.getElementById('email-error').innerText = 'Please enter a valid email address.';
-    isValid = false;
-  }
+      // Validate Email
+      if (!validateEmail(email)) {
+        document.getElementById('email-error').style.display = 'block';
+        document.getElementById('email-error').innerText = 'Please enter a valid email address.';
+        isValid = false;
+      }
 
-  // Validate Password
-  if (password.length < 6) {
-    document.getElementById('password-error').style.display = 'block';
-    document.getElementById('password-error').innerText = 'Password must be at least 6 characters.';
-    isValid = false;
-  }
+      // Validate Password
+      if (password.length < 6) {
+        document.getElementById('password-error').style.display = 'block';
+        document.getElementById('password-error').innerText = 'Password must be at least 6 characters.';
+        isValid = false;
+      }
 
-  // Validate Confirm Password
-  if (password !== confirmPassword) {
-    document.getElementById('confirm-password-error').style.display = 'block';
-    document.getElementById('confirm-password-error').innerText = 'Passwords do not match.';
-    isValid = false;
-  }
+      // Validate Confirm Password
+      if (password !== confirmPassword) {
+        document.getElementById('confirm-password-error').style.display = 'block';
+        document.getElementById('confirm-password-error').innerText = 'Passwords do not match.';
+        isValid = false;
+      }
 
-  // If form is valid, show success message or submit form
-  if (isValid) {
-    alert('Sign Up successful!');
-    // Here you would typically send the form data to your backend server
-  }
-});
+      // If form is valid, redirect to email verification page
+      if (isValid) {
+        window.location.href = 'email-verification.html';
+      }
+    });
 
-// Email validation function
-function validateEmail(email) {
-  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  return emailPattern.test(email);
-}
-
-</script>
-  
-
+    // Email validation function
+    function validateEmail(email) {
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return emailPattern.test(email);
+    }
+  </script>
 </body>
 </html>
