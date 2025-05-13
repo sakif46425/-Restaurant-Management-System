@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  .header {
+    margin-bottom: 20px;
+  }
+  .dropdown {
+    margin-bottom: 20px;
+  }
+  .order-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  .order-card {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    color: white;
+    font-size: 0.8rem;
+  }
+  .green { background-color: #4CAF50; }
+  .yellow { background-color: #FFC107; }
+  .red { background-color: #F44336; }
+  .status-btn {
+    margin-top: 10px;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+  }
+  .notification {
+    background-color: red;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    animation: flash 1s infinite;
+  }
+  @keyframes flash {
+    0%, 100% { background-color: red; }
+    50% { background-color: darkred; }
+  }

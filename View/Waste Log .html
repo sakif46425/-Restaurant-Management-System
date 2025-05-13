@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Inventory Dashboard</title>
+  <link rel="stylesheet" href="Waste Log .css">
+</head>
+<body>
+  <h1>📊 Inventory Dashboard</h1>
+
+  <button class="home-button" onclick="goHome()">🏠 Home</button>
+
+  <div class="dashboard">
+    <button onclick="navigate('stockCount')">
+      <span class="icon">📦</span>
+      Stock Count
+    </button>
+    <button onclick="navigate('parAlerts')">
+      <span class="icon">⚠️</span>
+      Par Level Alerts
+    </button>
+    <button onclick="navigate('wasteLog')">
+      <span class="icon">🗑️</span>
+      Waste Log
+    </button>
+    <button onclick="navigate('receiveDelivery')">
+      <span class="icon">📥</span>
+      Receive Delivery
+    </button>
+    <button onclick="navigate('recipeUsage')">
+      <span class="icon">📊</span>
+      Recipe Usage
+    </button>
+  </div>
+
+  <!-- Waste Log Table -->
+  <h2 style="margin-top: 40px;">🗑️ Waste Log</h2>
+  <table id="wasteTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Ingredient</th>
+        <th>Qty</th>
+        <th>Reason</th>
+        <th>Logged By</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>May 9</td>
+        <td>Milk</td>
+        <td>2L</td>
+        <td>Spoiled</td>
+        <td>Staff 1</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="action-button" onclick="logWaste()">🔘 + Log Waste</button>
+
+ <script src="Waste Log .js"></script>
+</body>
+</html>

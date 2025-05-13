@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Menu - Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 100px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    button {
+      display: block;
+      width: 80%;
+      margin: 10px auto;
+      padding: 15px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .footer {
+      margin-top: 20px;
+      color: #888;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Digital Menu</h1>
+    <button onclick="navigateTo('Menu Editor.html')">Menu Editor</button>
+    <button onclick="navigateTo('Customer View.html')">Customer View</button>
+    <button onclick="navigateTo('Category Manager.html')">Category Manager</button>
+    <button onclick="navigateTo('Home Dashboard.html')">Home</button>
+
+    <div class="footer">© 2025 Digital Menu System</div>
+  </div>
+
+  <script>
+    function navigateTo(page) {
+      const validPages = [
+        "Menu Editor.html",
+        "Customer View.html",
+        "Category Manager.html",
+        "Home Dashboard.html"
+      ];
+      if (validPages.includes(page)) {
+        window.location.href = page;
+      } else {
+        alert("Invalid page requested.");
+      }
+    }
+  </script>
+</body>
+</html>

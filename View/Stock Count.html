@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Inventory Dashboard</title>
+  <link rel="stylesheet" href="Stock Count.css">
+</head>
+<body>
+  <h1>📊 Inventory Dashboard</h1>
+
+  <button class="home-button" onclick="goHome()">🏠 Home</button>
+
+  <div class="dashboard">
+    <button onclick="navigate('stockCount')">
+      <span class="icon">📦</span>
+      Stock Count
+    </button>
+    <button onclick="navigate('parAlerts')">
+      <span class="icon">⚠️</span>
+      Par Level Alerts
+    </button>
+    <button onclick="navigate('wasteLog')">
+      <span class="icon">🗑️</span>
+      Waste Log
+    </button>
+    <button onclick="navigate('receiveDelivery')">
+      <span class="icon">📥</span>
+      Receive Delivery
+    </button>
+    <button onclick="navigate('recipeUsage')">
+      <span class="icon">📊</span>
+      Recipe Usage
+    </button>
+  </div>
+
+  <table class="stock-table" id="stockTable">
+    <thead>
+      <tr>
+        <th>Ingredient</th>
+        <th>Current Qty</th>
+        <th>Unit</th>
+        <th>Last Updated</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Chicken</td>
+        <td>5</td>
+        <td>Kg</td>
+        <td>Today</td>
+        <td><button onclick="editItem(this)">✏️</button></td>
+      </tr>
+      <tr>
+        <td>Tomatoes</td>
+        <td>12</td>
+        <td>Kg</td>
+        <td>Today</td>
+        <td><button onclick="editItem(this)">✏️</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="add-ingredient" onclick="addIngredient()">+ Add Ingredient</button>
+
+  <p class="error" id="errorMsg">Invalid screen name selected!</p>
+
+  <script src="Stock Count.js"></script>
+</body>
+</html>
