@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category Manager</title>
+  <link rel="stylesheet" href="Category Manager .css">
+</head>
+<body>
+  <div class="category-manager">
+    <h2>📂 Category Manager</h2>
+    <div id="categoryList">
+      <div class="category" draggable="true">
+        <input type="text" value="Appetizers">
+        <div class="controls">
+          <button class="btn-delete" onclick="deleteCategory(this)">🗑️</button>
+        </div>
+      </div>
+      <div class="category" draggable="true">
+        <input type="text" value="Mains">
+        <div class="controls">
+          <button class="btn-delete" onclick="deleteCategory(this)">🗑️</button>
+        </div>
+      </div>
+      <div class="category" draggable="true">
+        <input type="text" value="Desserts">
+        <div class="controls">
+          <button class="btn-delete" onclick="deleteCategory(this)">🗑️</button>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-add" onclick="addCategory()">➕ Add New Category</button>
+    <button class="btn btn-save" onclick="saveOrder()">🔄 Save Category Order</button>
+  </div>
+
+  <script src="Category Manager .js"></script>
+</body>
+</html>

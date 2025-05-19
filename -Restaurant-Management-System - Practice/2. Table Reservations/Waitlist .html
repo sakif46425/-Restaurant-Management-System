@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservation & Waitlist</title>
+  <link rel="stylesheet" href="Waitlist .css">
+</head>
+<body>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <a href="Floor Plan Map.html"><button>Floor Plan Map</button></a>
+    <a href="Reservation Book.html"><button>Reservation Book</button></a>
+  </div>
+
+  <header>Reservation Book</header>
+  <input type="text" id="searchBar" placeholder="Search by name, time, or table" oninput="searchReservations()">
+
+  <button onclick="toggleForm('reservationForm')">Add Reservation</button>
+
+  <div class="form-container" id="reservationForm">
+    <h3>Add New Reservation</h3>
+    <form onsubmit="return validateAndAddReservation()">
+      <label>Time: <input type="time" id="resTime" required></label>
+      <label>Table No.: <input type="number" id="resTable" required></label>
+      <label>Name: <input type="text" id="resName" required></label>
+      <label>Guests: <input type="number" id="resGuests" min="1" required></label>
+      <button type="submit">Add</button>
+      <button type="button" onclick="toggleForm('reservationForm')">Cancel</button>
+    </form>
+  </div>
+
+  <table id="reservationTable">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Table No.</th>
+        <th>Name</th>
+        <th>Guests</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>19:00</td>
+        <td>4</td>
+        <td>John D.</td>
+        <td>3</td>
+        <td>Confirmed</td>
+        <td class="action-buttons">
+          <button onclick="editReservation(this)">Edit</button>
+          <button onclick="cancelReservation(this)">Cancel</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <header>Waitlist</header>
+  <button onclick="toggleForm('waitlistForm')">Add Walk-in</button>
+
+  <div class="form-container" id="waitlistForm">
+    <h3>Add to Waitlist</h3>
+    <form onsubmit="return validateAndAddWaitlist()">
+      <label>Name: <input type="text" id="waitName" required></label>
+      <label>Party Size: <input type="number" id="waitSize" min="1" required></label>
+      <label>Time Added: <input type="time" id="waitTime" required></label>
+      <label>Notes: <input type="text" id="waitNotes"></label>
+      <button type="submit">Add</button>
+      <button type="button" onclick="toggleForm('waitlistForm')">Cancel</button>
+    </form>
+  </div>
+
+  <table id="waitlistTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Party Size</th>
+        <th>Time Added</th>
+        <th>Notes</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Lisa M.</td>
+        <td>2</td>
+        <td>18:45</td>
+        <td>Window seat</td>
+        <td><button onclick="assignTable(this)">Assign Table</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script src="Waitlist .js"></script>
+</body>
+</html>

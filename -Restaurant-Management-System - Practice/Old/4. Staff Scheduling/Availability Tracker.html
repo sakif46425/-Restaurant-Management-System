@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Availability Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      text-align: center;
+      padding: 10px;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #45a049;
+    }
+    #output {
+      white-space: pre-wrap;
+      background: #f9f9f9;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>👥 Employee Availability Tracker</h2>
+  <form id="availabilityForm">
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Morning</th>
+          <th>Afternoon</th>
+          <th>Night</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Monday</td>
+          <td><input type="checkbox" name="monday" value="Morning"></td>
+          <td><input type="checkbox" name="monday" value="Afternoon"></td>
+          <td><input type="checkbox" name="monday" value="Night"></td>
+        </tr>
+        <tr>
+          <td>Tuesday</td>
+          <td><input type="checkbox" name="tuesday" value="Morning"></td>
+          <td><input type="checkbox" name="tuesday" value="Afternoon"></td>
+          <td><input type="checkbox" name="tuesday" value="Night"></td>
+        </tr>
+        <tr>
+          <td>Wednesday</td>
+          <td><input type="checkbox" name="wednesday" value="Morning"></td>
+          <td><input type="checkbox" name="wednesday" value="Afternoon"></td>
+          <td><input type="checkbox" name="wednesday" value="Night"></td>
+        </tr>
+        <tr>
+          <td>Thursday</td>
+          <td><input type="checkbox" name="thursday" value="Morning"></td>
+          <td><input type="checkbox" name="thursday" value="Afternoon"></td>
+          <td><input type="checkbox" name="thursday" value="Night"></td>
+        </tr>
+        <tr>
+          <td>Friday</td>
+          <td><input type="checkbox" name="friday" value="Morning"></td>
+          <td><input type="checkbox" name="friday" value="Afternoon"></td>
+          <td><input type="checkbox" name="friday" value="Night"></td>
+        </tr>
+        <tr>
+          <td>Saturday</td>
+          <td><input type="checkbox" name="saturday" value="Morning"></td>
+          <td><input type="checkbox" name="saturday" value="Afternoon"></td>
+          <td><input type="checkbox" name="saturday" value="Night"></td>
+        </tr>
+        <tr>
+          <td>Sunday</td>
+          <td><input type="checkbox" name="sunday" value="Morning"></td>
+          <td><input type="checkbox" name="sunday" value="Afternoon"></td>
+          <td><input type="checkbox" name="sunday" value="Night"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="button" class="btn" onclick="saveAvailability()">Save Availability</button>
+  </form>
+
+  <h3>📦 JSON Output:</h3>
+  <div id="output"></div>
+
+  <script>
+    function saveAvailability() {
+      const form = document.getElementById('availabilityForm');
+      const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+      let availability = {
+        monday: [],
+        tuesday: [],
+        wednesday: [],
+        thursday: [],
+        friday: [],
+        saturday: [],
+        sunday: []
+      };
+
+      let selectedCount = 0;
+
+      checkboxes.forEach(cb => {
+        if (cb.checked) {
+          availability[cb.name].push(cb.value);
+          selectedCount++;
+        }
+      });
+
+      // Validation: Must select at least one
+      if (selectedCount === 0) {
+        alert("Please select at least one time slot.");
+        return;
+      }
+
+      // Display result
+      document.getElementById('output').innerText = JSON.stringify(availability, null, 2);
+    }
+  </script>
+
+</body>
+</html>

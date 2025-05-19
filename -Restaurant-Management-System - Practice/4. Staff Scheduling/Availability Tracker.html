@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Availability Tracker</title>
+  <link rel="stylesheet" href="Availability Tracker.css">
+</head>
+<body>
+  <h2>Availability Tracker</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Staff Name</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Alice</td>
+        <td><input type="time" class="time-start" data-day="Mon"> - <input type="time" class="time-end" data-day="Mon"></td>
+        <td><input type="time" class="time-start" data-day="Tue"> - <input type="time" class="time-end" data-day="Tue"></td>
+        <td><input type="time" class="time-start" data-day="Wed"> - <input type="time" class="time-end" data-day="Wed"></td>
+        <td><input type="time" class="time-start" data-day="Thu"> - <input type="time" class="time-end" data-day="Thu"></td>
+        <td><input type="time" class="time-start" data-day="Fri"> - <input type="time" class="time-end" data-day="Fri"></td>
+        <td><input type="text" class="notes-input" placeholder="e.g., Exam this week"></td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td><input type="time" class="time-start" data-day="Mon"> - <input type="time" class="time-end" data-day="Mon"></td>
+        <td><input type="time" class="time-start" data-day="Tue"> - <input type="time" class="time-end" data-day="Tue"></td>
+        <td><input type="time" class="time-start" data-day="Wed"> - <input type="time" class="time-end" data-day="Wed"></td>
+        <td><input type="time" class="time-start" data-day="Thu"> - <input type="time" class="time-end" data-day="Thu"></td>
+        <td><input type="time" class="time-start" data-day="Fri"> - <input type="time" class="time-end" data-day="Fri"></td>
+        <td><input type="text" class="notes-input" placeholder="e.g., Doctor appointment"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script src="Availability Tracker.js"></script>
+</body>
+</html>

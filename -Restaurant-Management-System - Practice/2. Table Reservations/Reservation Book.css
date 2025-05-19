@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f9f9f9;
+  }
+  header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  #searchBar {
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+  }
+  th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  .action-buttons button {
+    margin: 0 5px;
+  }
+  .action-links {
+    margin: 20px 0;
+  }
+  #addReservationBtn,
+  .nav-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    margin: 5px 5px 5px 0;
+    background-color: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .nav-btn:hover,
+  #addReservationBtn:hover {
+    background-color: #777;
+  }
+  #reservationForm {
+    display: none;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    margin: 20px auto;
+  }
+  #reservationForm label {
+    display: block;
+    margin-top: 10px;
+  }
+  #reservationForm input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+  }
+  #reservationForm button {
+    margin-top: 15px;
+  }

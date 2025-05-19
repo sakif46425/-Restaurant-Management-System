@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restaurant Dashboard</title>
+  <link rel="stylesheet" href="Home Dashboard.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Restaurant</h2>
+    <a href="Home Dashboard.html">Home</a>
+    <a href="#">Orders</a>
+    <a href="#">Reservations</a>
+    <a href="#">Menu</a>
+    <a href="#">Staff</a>
+    <a href="#">Settings</a>
+
+    <div class="dropdown">
+      <button class="dropbtn">More</button>
+      <div class="dropdown-content">
+        <a href="Analytics overview.html">Analytics Overview</a>
+        <a href="Quick Actions .html">Quick Actions</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="logo">🍽️ MyRestaurant</div>
+      <div class="profile">👤 Admin</div>
+  
+    </div>
+
+    <div class="content">
+      <div class="card" onclick="showDetails('orders')">
+        <div class="card-title">🧾 Today’s Orders</div>
+        <div class="card-value" id="orders-count">124</div>
+      </div>
+
+      <div class="card" onclick="showDetails('sales')">
+        <div class="card-title">💰 Total Sales Today</div>
+        <div class="card-value" id="sales-amount">$2,430</div>
+      </div>
+
+      <div class="card" onclick="showDetails('tables')">
+        <div class="card-title">🪑 Table Availability</div>
+        <div class="card-value" id="table-status">4 / 20</div>
+      </div>
+
+      <div class="card" onclick="showDetails('topItem')">
+        <div class="card-title">🍴 Top-Selling Item</div>
+        <div class="card-value" id="top-item">Spicy Chicken Burger</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="Home Dashboard.js"></script>
+</body>
+</html>

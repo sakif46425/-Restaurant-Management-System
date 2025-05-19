@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #4A90E2;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav {
+      background-color: #fff;
+      padding: 15px;
+      width: 200px;
+      height: 100vh;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      margin-top: 60px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav ul li {
+      margin: 20px 0;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .main {
+      margin-left: 220px;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      background-color: #e8f0fe;
+    }
+
+    .card h3 {
+      margin: 0;
+    }
+
+    .notification {
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .form-section {
+      margin-top: 30px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>📘 Dashboard</strong></div>
+    <div>Welcome, Student 🔔 <span class="notification" onclick="alert('No new notifications')">🔔</span></div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="Home Dashboard.html">🏠 Home</a></li>
+      <li><a href="Analytics overview.html">📊 Analytics</a></li>
+      <li><a href="Quick Actions .html">⚡ Quick Actions</a></li>
+      <li><a href="#">⚙️ Settings</a></li>
+      <li><a href="login.html">🚪 Logout</a></li>
+    </ul>
+  </nav>
+
+  <div class="main">
+    <div class="card" onclick="alert('Opening My Courses...')">
+      <h3>📚 My Courses</h3>
+    </div>
+    <div class="card" onclick="alert('Opening Upcoming Tasks...')">
+      <h3>🗓️ Upcoming Tasks</h3>
+    </div>
+    <div class="card" onclick="alert('Opening Completed Tasks...')">
+      <h3>✅ Completed Tasks</h3>
+    </div>
+    <div class="card" onclick="alert('Opening Progress Overview...')">
+      <h3>📈 Progress Overview</h3>
+    </div>
+
+    <div class="form-section">
+      <h3>📥 Add New Task </h3>
+      <form id="taskForm">
+        <input type="text" id="taskName" placeholder="Enter task name" required><br>
+        <input type="date" id="taskDate" required><br>
+        <button type="submit">Add Task</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('taskForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const taskName = document.getElementById('taskName').value.trim();
+      const taskDate = document.getElementById('taskDate').value;
+
+      if (!taskName) {
+        alert("Task name can't be empty.");
+        return;
+      }
+      if (!taskDate) {
+        alert("Please select a date.");
+        return;
+      }
+      alert(`Task '${taskName}' added for ${taskDate}`);
+      this.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Notifications UI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .notification-bell {
+      position: relative;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+
+    .notification-panel {
+      display: none;
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 300px;
+      background: #f9f9f9;
+      position: absolute;
+      margin-top: 10px;
+      z-index: 1000;
+    }
+
+    .notification {
+      border-bottom: 1px solid #ddd;
+      padding: 5px 0;
+    }
+
+    .notification.unread {
+      font-weight: bold;
+    }
+
+    .notification span {
+      display: block;
+      font-size: 12px;
+      color: gray;
+    }
+
+    #markReadBtn {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #markReadBtn:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🛎️ Notification </h2>
+
+  <div class="notification-bell" onclick="toggleNotifications()">
+    🔔
+    <div class="badge" id="unreadCount">3</div>
+  </div>
+
+  <div class="notification-panel" id="notificationPanel">
+    <h3>🔔 Notifications</h3>
+    <div id="notificationsList">
+      <div class="notification unread" data-id="1">
+        ✔️ Assignment submitted successfully
+        <span>2 hrs ago</span>
+      </div>
+      <div class="notification unread" data-id="2">
+        📅 Upcoming exam: Monday at 10 AM
+        <span>1 day ago</span>
+      </div>
+      <div class="notification unread" data-id="3">
+        ⚠️ Your password will expire soon
+        <span>3 days ago</span>
+      </div>
+    </div>
+    <button id="markReadBtn" onclick="markAllAsRead()">Mark all as read</button>
+  </div>
+
+  <script>
+    function toggleNotifications() {
+      const panel = document.getElementById("notificationPanel");
+      panel.style.display = (panel.style.display === "block") ? "none" : "block";
+    }
+
+    function markAllAsRead() {
+      const notifications = document.querySelectorAll(".notification.unread");
+      if (notifications.length === 0) {
+        alert("All notifications are already read.");
+        return;
+      }
+
+      notifications.forEach(notification => {
+        notification.classList.remove("unread");
+      });
+
+      // Reset badge count
+      document.getElementById("unreadCount").innerText = "0";
+      document.getElementById("unreadCount").style.display = "none";
+    }
+
+    // Optional: Hide panel if user clicks outside
+    document.addEventListener("click", function(event) {
+      const bell = document.querySelector(".notification-bell");
+      const panel = document.getElementById("notificationPanel");
+      if (!panel.contains(event.target) && !bell.contains(event.target)) {
+        panel.style.display = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Station View (Chefs)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .station-container {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+    .column {
+      width: 45%;
+      background: #ffffff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .column h2 {
+      text-align: center;
+    }
+    .order-card {
+      margin: 10px 0;
+      padding: 15px;
+      border-left: 10px solid gray;
+      border-radius: 8px;
+      background: #f9f9f9;
+      position: relative;
+      transition: border 0.5s;
+    }
+    .green { border-left-color: green; }
+    .yellow { border-left-color: orange; }
+    .red {
+      border-left-color: red;
+      animation: flash 1s infinite;
+    }
+    @keyframes flash {
+      0% { border-color: red; }
+      50% { border-color: darkred; }
+      100% { border-color: red; }
+    }
+    .order-btn {
+      margin-top: 10px;
+      padding: 6px 12px;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Chef Station View</h1>
+  <div class="station-container">
+    <div class="column" id="appetizerColumn">
+      <h2>Appetizer</h2>
+    </div>
+    <div class="column" id="mainColumn">
+      <h2>Main</h2>
+    </div>
+  </div>
+
+  <audio id="beep">
+    <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+  </audio>
+
+  <script>
+    const orders = [
+      { ticketID: 201, dishName: 'Salad', firedTime: new Date(Date.now() - 4 * 60000), course: 'Appetizer', status: 'In Progress' },
+      { ticketID: 202, dishName: 'Steak', firedTime: new Date(Date.now() - 8 * 60000), course: 'Main', status: 'In Progress' },
+      { ticketID: 203, dishName: 'Soup', firedTime: new Date(Date.now() - 12 * 60000), course: 'Appetizer', status: 'In Progress' }
+    ];
+
+    function getColorClass(minutes) {
+      if (minutes < 5) return 'green';
+      if (minutes < 10) return 'yellow';
+      return 'red';
+    }
+
+    function renderStations() {
+      document.getElementById('appetizerColumn').innerHTML = '<h2>Appetizer</h2>';
+      document.getElementById('mainColumn').innerHTML = '<h2>Main</h2>';
+
+      let beepPlayed = false;
+      orders.forEach((order, index) => {
+        const minutes = Math.floor((Date.now() - order.firedTime.getTime()) / 60000);
+        const colorClass = getColorClass(minutes);
+
+        const card = document.createElement('div');
+        card.className = `order-card ${colorClass}`;
+
+        card.innerHTML = `
+          <strong>Ticket ID:</strong> ${order.ticketID} <br>
+          <strong>Dish:</strong> ${order.dishName} <br>
+          <strong>Status:</strong> ${order.status} <br>
+          <strong>Time since fired:</strong> ${minutes} min<br>
+          <button class="order-btn" onclick="markReady(${index})">Mark as Ready</button>
+        `;
+
+        if (colorClass === 'red' && !beepPlayed) {
+          document.getElementById('beep').play();
+          beepPlayed = true;
+        }
+
+        const column = order.course === 'Appetizer' ? 'appetizerColumn' : 'mainColumn';
+        document.getElementById(column).appendChild(card);
+      });
+    }
+
+    function markReady(index) {
+      if (orders[index].status === 'Ready') {
+        alert('Already marked as Ready.');
+        return;
+      }
+      orders[index].status = 'Ready';
+      renderStations();
+    }
+
+    renderStations();
+    setInterval(renderStations, 60000); // auto-refresh
+  </script>
+
+</body>
+</html>

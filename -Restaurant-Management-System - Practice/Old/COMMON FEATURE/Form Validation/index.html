@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Form Validation</title>
+ <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-container {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  width: 350px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4A90E2;
+}
+
+small {
+  color: red;
+  visibility: hidden;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+.form-group.success input {
+  border-color: #2ecc71;
+}
+
+.form-group.error input {
+  border-color: #e74c3c;
+}
+
+.form-group.error small {
+  visibility: visible;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4A90E2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+button:enabled {
+  opacity: 1;
+}
+
+#successMessage {
+  text-align: center;
+  margin-top: 15px;
+  color: green;
+  font-weight: bold;
+}
+
+ </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>User Registration</h2>
+    <form id="registrationForm" novalidate>
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required>
+        <small>Error message</small>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" required>
+        <small>Error message</small>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required>
+        <small>Error message</small>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" required>
+        <small>Error message</small>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" required>
+        <small>Error message</small>
+      </div>
+
+      <button type="submit" id="submitBtn" disabled>Submit</button>
+      <p id="successMessage"></p>
+    </form>
+  </div>
+
+<script>
+    const form = document.getElementById("registrationForm");
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const confirmPasswordInput = document.getElementById("confirmPassword");
+const phoneInput = document.getElementById("phone");
+const submitBtn = document.getElementById("submitBtn");
+const successMessage = document.getElementById("successMessage");
+
+const formFields = [nameInput, emailInput, passwordInput, confirmPasswordInput, phoneInput];
+
+function showError(input, message) {
+  const formGroup = input.parentElement;
+  formGroup.className = "form-group error";
+  formGroup.querySelector("small").innerText = message;
+}
+
+function showSuccess(input) {
+  const formGroup = input.parentElement;
+  formGroup.className = "form-group success";
+}
+
+function isValidEmail(email) {
+  return /^\S+@\S+\.\S+$/.test(email);
+}
+
+function isValidPhone(phone) {
+  return /^\d{10,15}$/.test(phone);
+}
+
+function validateInputs() {
+  let valid = true;
+
+  // Name
+  if (nameInput.value.trim().length < 3) {
+    showError(nameInput, "Name must be at least 3 characters.");
+    valid = false;
+  } else {
+    showSuccess(nameInput);
+  }
+
+  // Email
+  if (!isValidEmail(emailInput.value.trim())) {
+    showError(emailInput, "Enter a valid email.");
+    valid = false;
+  } else {
+    showSuccess(emailInput);
+  }
+
+  // Password
+  if (passwordInput.value.length < 8 || !/\d|\W/.test(passwordInput.value)) {
+    showError(passwordInput, "Password must be 8+ chars and include number/symbol.");
+    valid = false;
+  } else {
+    showSuccess(passwordInput);
+  }
+
+  // Confirm Password
+  if (confirmPasswordInput.value !== passwordInput.value) {
+    showError(confirmPasswordInput, "Passwords do not match.");
+    valid = false;
+  } else {
+    showSuccess(confirmPasswordInput);
+  }
+
+  // Phone
+  if (!isValidPhone(phoneInput.value.trim())) {
+    showError(phoneInput, "Phone must be 10–15 digits.");
+    valid = false;
+  } else {
+    showSuccess(phoneInput);
+  }
+
+  submitBtn.disabled = !valid;
+  return valid;
+}
+
+// Real-time validation
+formFields.forEach(input => {
+  input.addEventListener("input", validateInputs);
+});
+
+// Form submission
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  if (validateInputs()) {
+    successMessage.innerText = "✔️ Form submitted successfully!";
+    form.reset();
+    formFields.forEach(field => {
+      field.parentElement.className = "form-group";
+    });
+    submitBtn.disabled = true;
+  }
+});
+
+</script>
+</body>
+</html>

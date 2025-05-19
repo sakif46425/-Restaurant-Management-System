@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Editor</title>
+ <link rel="stylesheet" href="Menu Editor.css">
+</head>
+<body>
+  <div class="sidebar">
+    <h3>Categories</h3>
+    <ul id="categoryList">
+      <li>Appetizers</li>
+      <li>Mains</li>
+      <li>Desserts</li>
+    </ul>
+    <button onclick="addCategory()">➕ Add Category</button>
+  </div>
+
+  <div class="main">
+    <div class="top-bar">
+      <button class="btn btn-save" onclick="saveChanges()">🔄 Save Changes</button>
+      <button class="btn btn-sync" onclick="syncNow()">☁️ Sync Now</button>
+    </div>
+
+    <div id="menuItems">
+      <!-- Example Item Card -->
+      <div class="item-card">
+        <input type="text" placeholder="Item Name" id="itemName">
+        <input type="number" placeholder="Price" id="itemPrice">
+        <label>
+          <input type="checkbox" id="seasonal"> Seasonal Availability
+        </label>
+        <input type="file" id="itemPhoto">
+        <button class="btn btn-delete" onclick="deleteItem(this)">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="Menu Editor.js"></script>
+</body>
+</html>
