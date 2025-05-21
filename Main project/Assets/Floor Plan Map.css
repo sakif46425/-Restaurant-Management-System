@@ -1,0 +1,76 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+header {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.5em;
+}
+.main {
+  display: flex;
+  flex: 1;
+}
+.sidebar {
+  width: 200px;
+  background: #f4f4f4;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+}
+.sidebar label, .sidebar button {
+  display: block;
+  margin-top: 10px;
+}
+.legend {
+  margin: 10px;
+}
+.legend span {
+  display: block;
+  margin: 5px 0;
+}
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+  gap: 10px;
+  justify-content: center;
+  align-content: start;
+  padding: 20px;
+}
+.table {
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+}
+.available { background-color: green; }
+.reserved { background-color: red; }
+.occupied { background-color: orange; }
+.bottom-toolbar {
+  background: #eee;
+  padding: 10px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+button {
+  margin: 5px;
+}
+.hidden { display: none; }
+#assignForm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}

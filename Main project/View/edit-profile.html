@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="../Assets/edit-profile.css" />
+</head>
+<body>
+  <div class="edit-container">
+    <h2>Edit Profile</h2>
+
+    <form id="editProfileForm" onsubmit="return validateForm()">
+      <input type="text" id="fullName" placeholder="Full Name" />
+      <input type="email" id="email" placeholder="Email Address" />
+      <input type="text" id="phone" placeholder="Phone Number" />
+      <input type="text" id="address" placeholder="Address (optional)" />
+
+      <p class="error-msg" id="errorMsg"></p>
+
+      <div class="button-group">
+        <button type="submit">Save</button>
+        <button type="button" onclick="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="../Assets/edit-profile.js"></script>
+</body>
+</html>

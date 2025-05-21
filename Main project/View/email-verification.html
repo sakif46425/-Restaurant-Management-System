@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Email Verification</title>
+  <link rel="stylesheet" href="../Assets/email-verification.css">
+</head>
+<body>
+  <div class="container">
+    <div class="email-verification">
+      <h2>Email Verification</h2>
+      <p>We’ve sent a verification email to your address. Didn’t receive it? Resend below.</p>
+      
+
+      <form id="resend-form" method="POST" action="../Contoller/email-verification.php"></form>
+        <div class="input-group">
+          <label for="email">Your Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required />
+          <span id="email-error" class="error"></span>
+        </div>
+        <button type="submit" class="btn">Resend Verification Email</button>
+        <p class="info" id="resend-info" style="display: none;">Verification email sent again!</p>
+      </form>
+
+      <div class="links">
+        <a href="../View/login.html">← Back to Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../Assets/email-verification.js"></script>
+</body>
+</html>

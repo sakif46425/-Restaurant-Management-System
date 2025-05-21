@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permission Settings</title>
+    <link rel="stylesheet" href="../Assets/Permission Settings.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="nav">
+            <button class="nav-btn" onclick="navigateTo('home')">Home</button>
+            <button class="nav-btn" onclick="navigateTo('permission-settings')">Permission Settings</button>
+            <button class="nav-btn" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h1>Permission Settings</h1>
+
+        <!-- User Table -->
+        <table id="userTable">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Current Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>sakif</td>
+                    <td>Admin</td>
+                    <td><button class="assignRoleBtn" onclick="openRoleAssignment('sakif ')">Change Role</button></td>
+                </tr>
+                <tr>
+                    <td>Akil</td>
+                    <td>Editor</td>
+                    <td><button class="assignRoleBtn" onclick="openRoleAssignment('Akil')">Change Role</button></td>
+                </tr>
+                <tr>
+                    <td>Priyom</td>
+                    <td>User</td>
+                    <td><button class="assignRoleBtn" onclick="openRoleAssignment('Priyom')">Change Role</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Role Assignment Modal -->
+        <div id="roleAssignmentModal" class="modal">
+            <div class="modal-content">
+                <h2>Assign Role to <span id="userNameDisplay"></span></h2>
+                <form id="roleForm" onsubmit="return validateForm(event)">
+                    <label for="role">Select Role:</label>
+                    <select id="role" name="role" required>
+                        <option value="Admin">Admin</option>
+                        <option value="Editor">Editor</option>
+                        <option value="User">User</option>
+                    </select>
+                    <div class="modal-buttons">
+                        <button type="submit">Assign Role</button>
+                        <button type="button" onclick="closeModal()">Cancel</button>
+                    </div>
+                </form>
+                <p id="errorMessage" class="error"></p>
+            </div>
+        </div>
+    </div>
+
+ <script src="../Assets/Permission Settings.js"></script>
+</body>
+</html>

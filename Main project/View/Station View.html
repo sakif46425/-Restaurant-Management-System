@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Station View Screen</title>
+  <link rel="stylesheet" href="../Assets/Station View.css">
+</head>
+<body>
+  <div class="header">
+    <h2>Station View</h2>
+    <div class="dropdown">
+      <label for="stationSelect">Select Station: </label>
+      <select id="stationSelect" onchange="filterOrders()">
+        <option value="All">All</option>
+        <option value="Grill">Grill</option>
+        <option value="Fry">Fry</option>
+        <option value="Oven">Oven</option>
+        <option value="Dessert">Dessert</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="notificationBar" class="notification" style="display: none;">
+    🚨 Delayed Orders Present!
+  </div>
+
+  <div class="order-grid" id="orderGrid">
+    <!-- Order cards inserted here -->
+  </div>
+
+<script src="../Assets/Station View.js"></script>
+</body>
+</html>

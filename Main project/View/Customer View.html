@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer View</title>
+  <link rel="stylesheet" href="../Assets/Customer View.css">
+</head>
+<body>
+  <header>
+    <input type="text" placeholder="🔍 Search menu..." onkeyup="filterItems()">
+    <div class="filters">
+      <label><input type="checkbox" onchange="filterItems()" value="Vegan"> Vegan</label>
+      <label><input type="checkbox" onchange="filterItems()" value="Gluten-Free"> Gluten-Free</label>
+      <label><input type="checkbox" onchange="filterItems()" value="Spicy"> Spicy</label>
+    </div>
+  </header>
+
+  <div class="tabs" id="menu">
+    <div class="category" data-category="Appetizers">
+      <h3>Appetizers</h3>
+      <div class="item-card" data-tags="Vegan">
+        <img src="https://via.placeholder.com/60" alt="Dish">
+        <div class="item-info">
+          <div><strong>Spring Rolls</strong></div>
+          <div class="tags">Vegan</div>
+          <div>$5.99</div>
+          <div class="desc">Crispy rolls with veggies</div>
+        </div>
+      </div>
+    </div>
+    <div class="category" data-category="Mains">
+      <h3>Mains</h3>
+      <div class="item-card" data-tags="Gluten-Free Spicy">
+        <img src="https://via.placeholder.com/60" alt="Dish">
+        <div class="item-info">
+          <div><strong>Grilled Chicken</strong></div>
+          <div class="tags">Gluten-Free, Spicy</div>
+          <div>$12.99</div>
+          <div class="desc">Chicken breast with herbs</div>
+        </div>
+      </div>
+    </div>
+    <div class="category" data-category="Desserts">
+      <h3>Desserts</h3>
+      <div class="item-card">
+        <img src="https://via.placeholder.com/60" alt="Dish">
+        <div class="item-info">
+          <div><strong>Chocolate Cake</strong></div>
+          <div class="tags">Vegetarian</div>
+          <div>$6.49</div>
+          <div class="desc">Rich and moist chocolate cake</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="live-status">✅ Updated just now</div>
+
+  <script src="../Assets/Customer View.js"></script>
+</body>
+</html>

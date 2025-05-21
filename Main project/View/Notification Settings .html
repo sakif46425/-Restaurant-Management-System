@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notification Settings</title>
+  <link rel="stylesheet" href="../Assets/Notification Settings .css"/>
+</head>
+<body>
+
+  <div class="settings-container">
+    <h2>⚙️ Notification Settings</h2>
+    <form id="notificationForm">
+      <label>
+        <input type="checkbox" name="orderEmail">
+        Email me when a new order arrives
+      </label>
+
+      <label>
+        <input type="checkbox" name="tablePush" checked>
+        Push alert for table reservation
+      </label>
+
+      <label>
+        <input type="checkbox" name="lowInventoryEmail" checked>
+        Email for low inventory alerts
+      </label>
+
+      <label>
+        <input type="checkbox" name="staffApp">
+        App alert for staff changes
+      </label>
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+
+  <script src="../Assets/Notification Settings .js"></script>
+</body>
+</html>

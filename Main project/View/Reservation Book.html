@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservation Book</title>
+  <link rel="stylesheet" href="../Assets/Reservation Book.css">
+</head>
+<body>
+  <header>Reservation Book</header>
+  <input type="text" id="searchBar" placeholder="Search by name, time, or table" oninput="searchReservations()">
+
+  <div class="action-links">
+    <button id="addReservationBtn" onclick="toggleForm()">Add Reservation</button>
+    <a href="Floor Plan Map.html"><button class="nav-btn">Floor Plan Map</button></a>
+    <a href="Waitlist.html"><button class="nav-btn">Waitlist</button></a>
+  </div>
+
+  <div id="reservationForm">
+    <h3>Add New Reservation</h3>
+    <form onsubmit="return validateAndAdd()">
+      <label>Time: <input type="time" id="resTime" required></label>
+      <label>Table No.: <input type="number" id="resTable" required></label>
+      <label>Name: <input type="text" id="resName" required></label>
+      <label>Guests: <input type="number" id="resGuests" min="1" required></label>
+      <button type="submit">Add</button>
+      <button type="button" onclick="toggleForm()">Cancel</button>
+    </form>
+  </div>
+
+  <table id="reservationTable">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Table No.</th>
+        <th>Name</th>
+        <th>Guests</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>19:00</td>
+        <td>4</td>
+        <td>John D.</td>
+        <td>3</td>
+        <td>Confirmed</td>
+        <td class="action-buttons">
+          <button onclick="editReservation(this)">Edit</button>
+          <button onclick="cancelReservation(this)">Cancel</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script src="../Assets/Reservation Book.js"></script>
+</body>
+</html>

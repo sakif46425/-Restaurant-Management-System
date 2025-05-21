@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notification Center</title>
+  <link rel="stylesheet" href="../Assets/Notification Center.css" />
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="bell-icon" onclick="toggleNotifications()">
+      🔔 <span id="unread-count">3</span>
+    </div>
+  </div>
+
+  <div id="notification-center" class="hidden">
+    <h2>🔔 Notification Center</h2>
+    <ul id="notification-list">
+      <li class="notification new" data-status="new">
+        🟠 [New] Order #1458 is ready
+      </li>
+      <li class="notification read">
+        🟢 Inventory updated: Tomatoes added
+      </li>
+      <li class="notification new" data-status="new">
+        🔴 Table 5 reservation canceled
+      </li>
+    </ul>
+    <div class="actions">
+      <button onclick="markAllAsRead()">Mark All as Read</button>
+      <button onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+
+  <script src="../Assets/Notification Center.js"></script>
+</body>
+</html>
