@@ -22,19 +22,8 @@ function validateForm(event) {
         errorMessage.style.display = "block";
     } else {
         errorMessage.style.display = "none";
-        // Here you can add code to submit the form or make a backend API request
+        // You can add an API request here or process the data further
         alert("Role assigned successfully!");
         closeModal(); // Close the modal after successful assignment
     }
-}
-
-// Navigation functions
-function navigateTo(page) {
-    alert(`Navigating to: ${page}`);
-    // Here you can implement actual navigation (e.g., changing page content or redirecting)
-}
-
-function logout() {
-    alert("Logging out...");
-    // Handle logout process (e.g., clear session, redirect to login page)
 }
