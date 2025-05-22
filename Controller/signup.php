@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirmPassword = $_POST['confirm-password'] ?? '';
+    $role = trim($_POST['user-role'] ?? '');
 
     $errors = [];
 
@@ -31,6 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Passwords do not match.";
     }
 
+    // Validate role
+    if (empty($role)) {
+        $errors[] = "Please select a role.";
+    }
+
     // Check if email already exists
     if (empty($errors)) {
         $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
@@ -48,22 +54,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $stmt = $conn->prepare("INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $fullName, $email, $hashedPassword);
+        $stmt = $conn->prepare("INSERT INTO users (full_name, email, password, role) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $fullName, $email, $hashedPassword, $role);
 
         if ($stmt->execute()) {
             // Set session
             $_SESSION['user'] = [
                 'id' => $stmt->insert_id,
                 'name' => $fullName,
-                'email' => $email
+                'email' => $email,
+                'role' => $role
             ];
 
             // Set cookie (valid for 7 days)
             setcookie("user_email", $email, time() + (86400 * 7), "/");
 
-            header("Location: ../View/login.html");
             $_SESSION['message'] = "Registration successful. Please log in.";
+            header("Location: ../View/login.html");
             exit();
         } else {
             $errors[] = "Registration failed. Try again.";

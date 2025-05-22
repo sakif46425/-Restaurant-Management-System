@@ -1,5 +1,5 @@
-
-    body {
+/* Body and Container Styling */
+body {
   font-family: Arial, sans-serif;
   background: #f2f2f2;
   display: flex;
@@ -8,31 +8,90 @@
 }
 
 .container {
-  background: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  max-width: 450px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
   text-align: center;
-  width: 360px;
 }
 
+/* Headings */
+.container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* File Input */
 input[type="file"] {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
+/* Image Preview Area */
 .preview-box {
+  margin: 20px 0;
   max-height: 300px;
   overflow: hidden;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  padding: 10px;
 }
 
+/* Final Avatar Image */
 .avatar-preview {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  margin-top: 15px;
+  margin-top: 20px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
-  border: 2px solid #888;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+/* Button Group Layout */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+/* Button Base Style */
+button {
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Individual Button Colors */
+button:hover {
+  opacity: 0.9;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:nth-child(1) {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+.reset-button {
+  background-color: #FF9800; /* Orange */
+  color: white;
+}
+
+.cancel-button {
+  background-color: #F44336; /* Red */
+  color: white;
 }

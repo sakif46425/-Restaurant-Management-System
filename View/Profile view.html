@@ -9,15 +9,27 @@
 <body>
   <div class="profile-container">
     <img src="avatar.png" alt="Avatar" id="profileAvatar" class="avatar" />
-    <h2 id="profileName">Profile name</h2>
-    <p id="profileEmail">Profile Email</p>
-    <p id="profilePhone">Phone number</p>
 
-    <div class="buttons">
-      <button onclick="window.location.href='edit-profile.html'">Edit Profile</button>
-      <button onclick="window.location.href='change-avatar.html'">Change Avatar</button>
-      <button onclick="window.location.href='update-password.html'">Update Password</button>
-    </div>
+    <!-- PHP-generated data -->
+    <h2 id="profileName"><?php echo htmlspecialchars($profileName ?? 'Profile name'); ?></h2>
+    <p id="profileEmail"><?php echo htmlspecialchars($profileEmail ?? 'Profile Email'); ?></p>
+    <p id="profilePhone"><?php echo htmlspecialchars($profilePhone ?? 'Phone number'); ?></p>
+
+    <!-- Form with POST method -->
+    <form action="../Controller/Profile view.php" method="POST">
+      <input type="hidden" name="name" value="<?php echo htmlspecialchars($profileName ?? ''); ?>">
+      <input type="hidden" name="email" value="<?php echo htmlspecialchars($profileEmail ?? ''); ?>">
+      <input type="hidden" name="phone" value="<?php echo htmlspecialchars($profilePhone ?? ''); ?>">
+
+      <div class="buttons">
+        <button formaction="edit-profile.html">Edit Profile</button>
+        <button formaction="change-avatar.html">Change Avatar</button>
+        <button formaction="update-password.html">Update Password</button>
+        <button formaction="signup.html">Delete Account</button>
+        <button formaction="login.html">Logout</button>
+        <button formaction="Home Dashboard.html">Home</button>
+      </div>
+    </form>
   </div>
 </body>
 </html>

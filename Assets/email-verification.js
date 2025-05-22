@@ -1,36 +1,54 @@
 document.getElementById('resend-form').addEventListener('submit', function (event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    const email = document.getElementById('email').value.trim();
-    const emailError = document.getElementById('email-error');
-    const resendInfo = document.getElementById('resend-info');
-    const form = document.getElementById('resend-form');
+  const email = document.getElementById('email').value.trim();
+  const emailError = document.getElementById('email-error');
+  const resendInfo = document.getElementById('resend-info');
+  const form = document.getElementById('resend-form');
 
-    emailError.style.display = 'none';
-    resendInfo.style.display = 'none';
+  // Hide previous messages
+  emailError.style.display = 'none';
+  resendInfo.style.display = 'none';
 
-    if (!validateEmail(email)) {
-      emailError.innerText = 'Please enter a valid email address.';
-      emailError.style.display = 'block';
-      return;
+  if (!validateEmail(email)) {
+    emailError.innerText = 'Please enter a valid email address.';
+    emailError.style.display = 'block';
+    return;
+  }
+
+  // Send POST request to PHP backend
+  fetch('resend-verification.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `email=${encodeURIComponent(email)}`
+  })
+  .then(response => {
+    if (!response.ok) {
+      return response.text().then(text => { throw new Error(text); });
     }
-
-    // Simulate email resend
-    resendInfo.innerText = 'Verification email sent again!';
+    return response.text();
+  })
+  .then(data => {
+    resendInfo.innerText = data;
     resendInfo.style.display = 'block';
 
-    // Simulate verification success after a short delay
+    // After a delay, show verified message and login link
     setTimeout(() => {
-      resendInfo.innerText = 'Your email has been verified!';
-      // Replace form content with success message and login button
       form.innerHTML = `
         <p class="info">Your email has been verified!</p>
         <a href="login.html" class="btn">Log in here</a>
       `;
     }, 3000);
+  })
+  .catch(error => {
+    emailError.innerText = error.message || "An error occurred. Please try again.";
+    emailError.style.display = 'block';
   });
+});
 
-  function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}

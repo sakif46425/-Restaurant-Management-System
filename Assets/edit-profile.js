@@ -28,5 +28,5 @@
 }
 
 function cancelEdit() {
-  window.location.href = "index.html"; // or use history.back() if navigating from view screen
+  window.location.href = "Profile view.html"; // or use history.back() if navigating from view screen
 }

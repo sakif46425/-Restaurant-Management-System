@@ -43,6 +43,15 @@ document.getElementById('signup-form').addEventListener('submit', function(event
       isValid = false;
     }
 
+    // Validate User Role
+const userRole = document.getElementById('user-role').value;
+if (userRole === "") {
+  document.getElementById('role-error').style.display = 'block';
+  document.getElementById('role-error').innerText = 'Please select a role.';
+  isValid = false;
+}
+
+
     // If form is valid, redirect to email verification page
     if (isValid) {
       window.location.href = 'email-verification.html';

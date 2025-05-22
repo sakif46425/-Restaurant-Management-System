@@ -12,7 +12,8 @@
       <h2>Email Verification</h2>
       <p>We’ve sent a verification email to your address. Didn’t receive it? Resend below.</p>
 
-      <form id="resend-form">
+      <form id="resend-form" action="../Main project/Controller/reset-password.php" method="POST">
+
         <div class="input-group">
           <label for="email">Your Email</label>
           <input type="email" id="email" name="email" placeholder="Enter your email" required />
@@ -23,11 +24,11 @@
       </form>
 
       <div class="links">
-        <a href="login.html">← Back to Login</a>
+        <a href="../Assets/login.html">← Back to Login</a>
       </div>
     </div>
   </div>
 
-  <script src="../Assets/email-verification.js"></script>
+  <script src="../Assets/edit-profile.js"></script>
 </body>
 </html>
