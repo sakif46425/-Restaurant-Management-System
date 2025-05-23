@@ -1,38 +1,111 @@
+/* Reset some default styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: #f7f7f7;
-  }
-  .order-list {
-    max-height: 600px;
-    overflow-y: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  .order-card {
-    border: 1px solid #ccc;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-  }
-  .badge {
-    padding: 5px 10px;
-    border-radius: 12px;
-    color: white;
-    font-size: 0.8rem;
-  }
-  .green { background-color: #4CAF50; }
-  .yellow { background-color: #FFC107; }
-  .red { background-color: #F44336; }
-  button {
-    margin: 5px 10px 5px 0;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .fire-btn { background-color: #ff9800; color: white; }
-  .ready-btn { background-color: #4CAF50; color: white; }
-  .delay-btn { background-color: #f44336; color: white; }
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+.order-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.order-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 280px;
+  transition: transform 0.2s;
+}
+
+.order-card:hover {
+  transform: translateY(-5px);
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+.badge.green {
+  background-color: #27ae60;
+}
+
+.badge.yellow {
+  background-color: #f1c40f;
+  color: #000;
+}
+
+.badge.red {
+  background-color: #e74c3c;
+}
+
+button {
+  margin: 5px 5px 0 0;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.fire-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.fire-btn:hover {
+  background-color: #2980b9;
+}
+
+.ready-btn {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.ready-btn:hover {
+  background-color: #27ae60;
+}
+
+.delay-btn {
+  background-color: #e67e22;
+  color: white;
+}
+
+.delay-btn:hover {
+  background-color: #d35400;
+}
+
+.back-btn {
+  display: block;
+  margin: 30px auto 0;
+  padding: 10px 24px;
+  background-color: #34495e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+  background-color: #2c3e50;
+}

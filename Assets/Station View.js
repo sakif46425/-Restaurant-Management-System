@@ -4,6 +4,10 @@ const stationOrders = [
     { id: 3, item: 'Pizza', station: 'Oven', timeElapsed: 6, status: 'In Progress' },
     { id: 4, item: 'Cake', station: 'Dessert', timeElapsed: 12, status: 'Queued' }
   ];
+  function goBack() {
+  window.location.href = "Order .html";
+}
+
 
   function getBadgeColor(time) {
     if (time < 5) return 'green';

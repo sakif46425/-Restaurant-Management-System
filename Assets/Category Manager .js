@@ -18,6 +18,11 @@ let draggedItem;
         }
       });
     });
+    function goBack() {
+  window.location.href = "Menu Home.html";
+}
+
+    
 
     function addCategory() {
       const container = document.getElementById('categoryList');

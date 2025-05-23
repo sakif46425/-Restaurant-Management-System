@@ -1,74 +1,151 @@
+/* Reservation Book.css */
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f9f9f9;
-  }
-  header {
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-  }
-  #searchBar {
-    margin-bottom: 20px;
-    width: 100%;
-    padding: 10px;
-    font-size: 1em;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-  }
-  th, td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  th {
-    background-color: #f2f2f2;
-  }
-  .action-buttons button {
-    margin: 0 5px;
-  }
-  .action-links {
-    margin: 20px 0;
-  }
-  #addReservationBtn,
-  .nav-btn {
-    padding: 10px 20px;
-    font-size: 1em;
-    margin: 5px 5px 5px 0;
-    background-color: #555;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .nav-btn:hover,
-  #addReservationBtn:hover {
-    background-color: #777;
-  }
-  #reservationForm {
-    display: none;
-    background-color: white;
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    margin: 20px auto;
-  }
-  #reservationForm label {
-    display: block;
-    margin-top: 10px;
-  }
-  #reservationForm input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-  }
-  #reservationForm button {
-    margin-top: 15px;
-  }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+header {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  background-color: #2c3e50;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+#searchBar {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  font-size: 1rem;
+  margin: 10px auto 20px;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.action-links {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.action-links button,
+.action-links a button {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.action-links button:hover {
+  background-color: #3498db;
+}
+
+#reservationForm {
+  display: none;
+  max-width: 500px;
+  margin: 0 auto 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+#reservationForm h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  text-align: center;
+}
+
+#reservationForm label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+#reservationForm input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+#reservationForm button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 48%;
+  margin-right: 2%;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #27ae60;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#reservationForm button[type="button"] {
+  background-color: #c0392b;
+}
+
+#reservationForm button:hover {
+  opacity: 0.9;
+}
+
+#reservationTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#reservationTable th,
+#reservationTable td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+#reservationTable th {
+  background-color: #34495e;
+  color: white;
+  font-weight: 600;
+}
+
+#reservationTable tbody tr:hover {
+  background-color: #f0f8ff;
+}
+
+.action-buttons button {
+  padding: 5px 10px;
+  margin: 0 3px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #e67e22;
+  transition: background-color 0.3s;
+}
+
+.action-buttons button:hover {
+  background-color: #d35400;
+}

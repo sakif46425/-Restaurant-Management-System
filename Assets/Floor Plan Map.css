@@ -1,76 +1,190 @@
-body {
-  font-family: Arial, sans-serif;
+/* Reset and base styles */
+* {
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+body {
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Header */
 header {
-  background-color: #333;
+  background-color: #004466;
   color: white;
-  padding: 10px;
+  padding: 1rem;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.8rem;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
+
+/* Main layout */
 .main {
   display: flex;
-  flex: 1;
-}
-.sidebar {
-  width: 200px;
-  background: #f4f4f4;
-  padding: 10px;
-  border-right: 1px solid #ccc;
-}
-.sidebar label, .sidebar button {
-  display: block;
-  margin-top: 10px;
-}
-.legend {
-  margin: 10px;
-}
-.legend span {
-  display: block;
-  margin: 5px 0;
-}
-.grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(5, 60px);
-  gap: 10px;
-  justify-content: center;
-  align-content: start;
+  flex-wrap: wrap;
   padding: 20px;
+  gap: 20px;
 }
-.table {
-  width: 60px;
-  height: 60px;
-  line-height: 60px;
-  text-align: center;
-  border-radius: 50%;
+
+/* Sidebar */
+.sidebar {
+  flex: 1 1 200px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  min-width: 200px;
+  height: fit-content;
+}
+
+.sidebar select,
+.sidebar button {
+  margin-top: 10px;
+  padding: 8px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.sidebar button {
+  background-color: #0077cc;
   color: white;
+  border: none;
   cursor: pointer;
+  transition: background 0.3s;
 }
-.available { background-color: green; }
-.reserved { background-color: red; }
-.occupied { background-color: orange; }
-.bottom-toolbar {
-  background: #eee;
-  padding: 10px;
+
+.sidebar button:hover {
+  background-color: #005fa3;
+}
+
+/* Grid for tables */
+.grid {
+  flex: 3 1 600px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+}
+
+.table {
+  padding: 20px;
   text-align: center;
-  border-top: 1px solid #ccc;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
-button {
-  margin: 5px;
+
+.table:hover {
+  transform: scale(1.05);
 }
-.hidden { display: none; }
+
+.table.available { background-color: #28a745; } /* Green */
+.table.reserved { background-color: #dc3545; }  /* Red */
+.table.occupied { background-color: #ffc107; color: #333; } /* Yellow */
+
+/* Legend */
+.legend {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.1rem;
+}
+
+.legend span {
+  margin: 0 10px;
+}
+
+/* Bottom toolbar */
+.bottom-toolbar {
+  text-align: center;
+  padding: 15px;
+  background: #eaeaea;
+  box-shadow: inset 0 1px 5px rgba(0,0,0,0.1);
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+}
+
+.bottom-toolbar button {
+  margin: 5px 10px;
+  padding: 10px 20px;
+  background-color: #0066aa;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.bottom-toolbar button:hover {
+  background-color: #004d80;
+}
+
+/* Assign Form Popup */
 #assignForm {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  border: 1px solid #ccc;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  z-index: 1000;
+  width: 300px;
+  display: none;
+}
+
+#assignForm h3 {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#assignForm label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+#assignForm input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+
+#assignForm button {
+  padding: 8px 12px;
+  margin-right: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#assignForm button[type="button"] {
+  background-color: #dc3545;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
 }
