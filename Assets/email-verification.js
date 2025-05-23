@@ -17,7 +17,7 @@ document.getElementById('resend-form').addEventListener('submit', function (even
   }
 
   // Send POST request to PHP backend
-  fetch('resend-verification.php', {
+  fetch('../Controller/resend-verification.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',

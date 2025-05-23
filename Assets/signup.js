@@ -54,7 +54,7 @@ if (userRole === "") {
 
     // If form is valid, redirect to email verification page
     if (isValid) {
-      window.location.href = 'email-verification.html';
+      window.location.href = '../View/email-verification.html';
     }
   });
 

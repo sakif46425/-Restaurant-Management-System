@@ -1,81 +1,162 @@
+/* Reset & Base Styles */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-  }
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
 
-  .sidebar {
-    width: 200px;
-    background-color: #eeeeee;
-    padding: 10px;
-    float: left;
-    height: 100vh;
-  }
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: linear-gradient(135deg, #eeeeee, #dddddd);
+  padding: 20px;
+  float: left;
+  height: 100vh;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
 
-  .main {
-    margin-left: 210px;
-    padding: 20px;
-  }
+.sidebar h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #444;
+}
 
-  .sidebar h3 {
-    margin: 0 0 10px 0;
-  }
+#categoryList {
+  list-style: none;
+  padding: 0;
+}
 
-  #categoryList {
-    list-style-type: none;
-    padding: 0;
-  }
+#categoryList li {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  margin-bottom: 8px;
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
 
-  #categoryList li {
-    margin-bottom: 5px;
-  }
+#categoryList li:hover {
+  background-color: #ddd;
+}
 
-  button {
-    padding: 5px 10px;
-    margin-top: 10px;
-    cursor: pointer;
-  }
+/* Main Section */
+.main {
+  margin-left: 240px;
+  padding: 30px;
+}
 
-  .item-card {
-    border: 1px solid #cccccc;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #ffffff;
-  }
+/* Top Bar Buttons */
+.top-bar {
+  margin-bottom: 25px;
+}
 
-  .item-card input[type="text"],
-  .item-card input[type="number"],
-  .item-card input[type="file"] {
-    display: block;
-    margin-bottom: 8px;
-    padding: 5px;
-    width: 100%;
-    box-sizing: border-box;
-  }
+button {
+  font-size: 15px;
+  border-radius: 6px;
+  padding: 8px 16px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
 
-  input[type="checkbox"] {
-    margin-right: 5px;
-  }
+.btn-save {
+  background-color: #28a745;
+  color: white;
+  margin-right: 10px;
+}
 
-  .btn-delete {
-    background-color: red;
-    color: white;
-    border: none;
-  }
+.btn-save:hover {
+  background-color: #218838;
+  transform: scale(1.03);
+}
 
-  .btn-save {
-    background-color: green;
-    color: white;
-    border: none;
-    margin-right: 10px;
-  }
+.btn-sync {
+  background-color: #007bff;
+  color: white;
+}
 
-  .btn-sync {
-    background-color: blue;
-    color: white;
-    border: none;
-  }
+.btn-sync:hover {
+  background-color: #0069d9;
+  transform: scale(1.03);
+}
 
-  .top-bar {
-    margin-bottom: 20px;
-  }
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+/* Item Card */
+.item-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.item-card input[type="text"],
+.item-card input[type="number"],
+.item-card input[type="file"] {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Add Category Button */
+.sidebar button {
+  background-color: #ffc107;
+  color: #222;
+  font-weight: bold;
+  border: none;
+  padding: 10px 12px;
+  margin-top: 15px;
+  border-radius: 5px;
+}
+
+.sidebar button:hover {
+  background-color: #e0a800;
+  transform: scale(1.03);
+}
+
+/* Back Button (Already provided, refined here for consistency) */
+.btn-back {
+  background: linear-gradient(135deg, #f0f0f0, #dcdcdc);
+  color: #333;
+  border: 2px solid #aaa;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.2s;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn-back:hover {
+  background: linear-gradient(135deg, #e2e2e2, #c6c6c6);
+  transform: translateY(-2px);
+}
+
+.btn-back:active {
+  background: #b0b0b0;
+  transform: translateY(1px);
+}

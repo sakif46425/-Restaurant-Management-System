@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Role Assignment</title>
+  <link rel="stylesheet" href="Admin Dashboard..css">
+</head>
+<body>
+  <div class="container">
+    <h2>👥 Assign Roles to Users</h2>
+
+    <!-- Home Button -->
+    <button onclick="location.href='dashboard.html'" style="margin-bottom: 15px;">🏠 Home</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>User Email</th>
+          <th>Current Role</th>
+          <th>Change Role To</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="userTable">
+        <tr>
+          <td>staff1@email.com</td>
+          <td>User</td>
+          <td>
+            <select class="role-select">
+              <option value="">Select Role</option>
+              <option value="Admin">Admin</option>
+              <option value="Editor">Editor</option>
+              <option value="User">User</option>
+            </select>
+            <div class="error"></div>
+          </td>
+          <td><button onclick="updateRole(this)">Update 🔁</button></td>
+        </tr>
+        <tr>
+          <td>cook1@email.com</td>
+          <td>Editor</td>
+          <td>
+            <select class="role-select">
+              <option value="">Select Role</option>
+              <option value="Admin">Admin</option>
+              <option value="Editor">Editor</option>
+              <option value="User">User</option>
+            </select>
+            <div class="error"></div>
+          </td>
+          <td><button onclick="updateRole(this)">Update 🔁</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="Admin Dashboard.js"></script>
+</body>
+</html>
