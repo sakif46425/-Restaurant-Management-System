@@ -37,8 +37,16 @@ document.getElementById('login-form').addEventListener('submit', function(event)
   // If form is valid, proceed
   if (isValid) {
     alert(`Login successful as ${capitalize(role)}!`);
-    // Submit form or send data to backend here
-    // Example: document.getElementById('login-form').submit();
+
+    // Redirect based on role
+    if (role === "admin") {
+      window.location.href = "Home Dashboard.html";
+    } else {
+      alert("Redirecting for other roles not set yet.");
+    }
+
+    // If you want to actually submit the form to the backend instead, use this:
+    // document.getElementById('login-form').submit();
   }
 });
 

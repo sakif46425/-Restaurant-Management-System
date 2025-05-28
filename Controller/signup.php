@@ -1,92 +1,80 @@
 <?php
 session_start();
-require_once 'db.php'; // include your DB connection
+require_once '../Model/DBsignup.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize & fetch inputs
-    $fullName = trim($_POST['full-name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $confirmPassword = $_POST['confirm-password'] ?? '';
-    $role = trim($_POST['user-role'] ?? '');
+$errors = [];
 
-    $errors = [];
+// Check if form submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Sanitize inputs
+    $fullName = trim(htmlspecialchars($_POST["full-name"] ?? ''));
+    $email = trim(htmlspecialchars($_POST["email"] ?? ''));
+    $password = $_POST["password"] ?? '';
+    $confirmPassword = $_POST["confirm-password"] ?? '';
+    $userRole = $_POST["user-role"] ?? '';
 
-    // Validate full name
+    // Validate inputs
     if (empty($fullName)) {
-        $errors[] = "Full name is required.";
+        $errors['full-name'] = "Full name is required.";
     }
 
-    // Validate email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email format.";
+        $errors['email'] = "Invalid email format.";
     }
 
-    // Validate password
     if (strlen($password) < 6) {
-        $errors[] = "Password must be at least 6 characters.";
+        $errors['password'] = "Password must be at least 6 characters.";
     }
 
-    // Validate confirm password
     if ($password !== $confirmPassword) {
-        $errors[] = "Passwords do not match.";
+        $errors['confirm-password'] = "Passwords do not match.";
     }
 
-    // Validate role
-    if (empty($role)) {
-        $errors[] = "Please select a role.";
+    $validRoles = ['admin', 'editor', 'user'];
+    if (!in_array($userRole, $validRoles)) {
+        $errors['user-role'] = "Please select a valid user role.";
     }
 
-    // Check if email already exists
+    // If no errors, proceed
     if (empty($errors)) {
+        // Check if email already exists
         $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
-        $stmt->bind_param('s', $email);
+        $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
 
         if ($stmt->num_rows > 0) {
-            $errors[] = "Email is already registered.";
-        }
-        $stmt->close();
-    }
-
-    // Register user if no errors
-    if (empty($errors)) {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $stmt = $conn->prepare("INSERT INTO users (full_name, email, password, role) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $fullName, $email, $hashedPassword, $role);
-
-        if ($stmt->execute()) {
-            // Set session
-            $_SESSION['user'] = [
-                'id' => $stmt->insert_id,
-                'name' => $fullName,
-                'email' => $email,
-                'role' => $role
-            ];
-
-            // Set cookie (valid for 7 days)
-            setcookie("user_email", $email, time() + (86400 * 7), "/");
-
-            $_SESSION['message'] = "Registration successful. Please log in.";
-            header("Location: ../View/login.html");
-            exit();
+            $errors['email'] = "Email is already registered.";
         } else {
-            $errors[] = "Registration failed. Try again.";
+            // Hash password
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            // Insert user into DB
+            $stmt = $conn->prepare("INSERT INTO users (full_name, email, password, role) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $fullName, $email, $hashedPassword, $userRole);
+
+            if ($stmt->execute()) {
+                // Redirect to verification page
+                header("Location: ../View/email-verification.html");
+                exit();
+            } else {
+                $errors['database'] = "Database error: " . $stmt->error;
+            }
         }
 
         $stmt->close();
     }
-
-    // Show errors (if any)
-    if (!empty($errors)) {
-        foreach ($errors as $error) {
-            echo "<p style='color:red;'>$error</p>";
-        }
-        echo "<a href='../View/signup.html'>Back</a>";
-    }
-
     $conn->close();
 }
 ?>
+
+<!-- Display errors (optional if handled in view) -->
+<?php if (!empty($errors)): ?>
+    <div class="error-box">
+        <ul>
+            <?php foreach ($errors as $field => $error): ?>
+                <li><strong><?= ucfirst($field) ?>:</strong> <?= $error ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
