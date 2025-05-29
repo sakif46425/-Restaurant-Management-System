@@ -7,31 +7,25 @@
   <link rel="stylesheet" href="../Assets/Stock Count.css">
 </head>
 <body>
-  <h1>📊 Inventory Dashboard</h1>
+  <h1>Stock Count</h1>
 
-  <button class="home-button" onclick="goHome()">🏠 Home</button>
+  <!-- Back Button -->
+  <a href="Inventory Dashboard.html" class="back-button">Back</a>
 
-  <div class="dashboard">
-    <button onclick="navigate('stockCount')">
-      <span class="icon">📦</span>
-      Stock Count
-    </button>
-    <button onclick="navigate('parAlerts')">
-      <span class="icon">⚠️</span>
-      Par Level Alerts
-    </button>
-    <button onclick="navigate('wasteLog')">
-      <span class="icon">🗑️</span>
-      Waste Log
-    </button>
-    <button onclick="navigate('receiveDelivery')">
-      <span class="icon">📥</span>
-      Receive Delivery
-    </button>
-    <button onclick="navigate('recipeUsage')">
-      <span class="icon">📊</span>
-      Recipe Usage
-    </button>
+ 
+    <a href="Par Level Alerts.html">
+      <button>
+        <span class="icon">⚠️</span>
+        Par Level Alerts
+      </button>
+    </a>
+    <a href="Waste Log .html">
+      <button>
+        <span class="icon">🗑️</span>
+        Waste Log
+      </button>
+    </a>
+  
   </div>
 
   <table class="stock-table" id="stockTable">
@@ -64,7 +58,7 @@
 
   <button class="add-ingredient" onclick="addIngredient()">+ Add Ingredient</button>
 
-  <p class="error" id="errorMsg">Invalid screen name selected!</p>
+  <p class="error" id="errorMsg" style="display:none;">Invalid screen name selected!</p>
 
   <script src="../Assets/Stock Count.js"></script>
 </body>

@@ -2,9 +2,8 @@ function navigate(screen) {
   const screenMap = {
     stockCount: "Stock Count.html",
     parAlerts: "Par Level Alerts.html",
-    wasteLog: "Waste Log.html", // Make sure filename does NOT have extra space
-    receiveDelivery: "Receive Delivery.html",
-    recipeUsage: "Recipe Usage.html"
+    wasteLog: "Waste Log .html", // Make sure filename does NOT have extra space
+  
   };
 
   const errorMsg = document.getElementById("errorMsg");

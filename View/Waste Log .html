@@ -1,37 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Restaurant Inventory Dashboard</title>
-  <link rel="stylesheet" href="../Assets/Waste Log .css">
+  <link rel="stylesheet" href="../Assets/Waste Log .css" />
 </head>
 <body>
   <h1>📊 Inventory Dashboard</h1>
 
-  <button class="home-button" onclick="goHome()">🏠 Home</button>
+  <button class="back-button" onclick="goBack()">⬅️ Back</button>
 
   <div class="dashboard">
-    <button onclick="navigate('stockCount')">
+    <button onclick="navigate('Stock Count.html')">
       <span class="icon">📦</span>
       Stock Count
     </button>
-    <button onclick="navigate('parAlerts')">
+    <button onclick="navigate('Par Level Alerts.html')">
       <span class="icon">⚠️</span>
       Par Level Alerts
     </button>
-    <button onclick="navigate('wasteLog')">
-      <span class="icon">🗑️</span>
-      Waste Log
-    </button>
-    <button onclick="navigate('receiveDelivery')">
-      <span class="icon">📥</span>
-      Receive Delivery
-    </button>
-    <button onclick="navigate('recipeUsage')">
-      <span class="icon">📊</span>
-      Recipe Usage
-    </button>
+  
   </div>
 
   <!-- Waste Log Table -->
@@ -44,21 +33,27 @@
         <th>Qty</th>
         <th>Reason</th>
         <th>Logged By</th>
+        <th>Actions</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="wasteTableBody">
       <tr>
         <td>May 9</td>
         <td>Milk</td>
         <td>2L</td>
         <td>Spoiled</td>
         <td>Staff 1</td>
+        <td>
+          <button onclick="editRow(this)">✏️ Edit</button>
+          <button onclick="deleteRow(this)">🗑️ Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>
 
   <button class="action-button" onclick="logWaste()">🔘 + Log Waste</button>
+  <button class="action-button" onclick="updateAll()">✅ Update All</button>
 
- <script src="../Assets/Waste Log .js"></script>
+  <script src="../Assets/Waste Log .js"></script>
 </body>
 </html>

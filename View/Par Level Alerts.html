@@ -1,36 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Restaurant Inventory Dashboard</title>
-  <link rel="stylesheet" href="../Assets/Par Level Alerts.css">
+  <link rel="stylesheet" href="../Assets/Par Level Alerts.css" />
 </head>
 <body>
   <h1>📊 Inventory Dashboard</h1>
 
-  <button class="home-button" onclick="goHome()">🏠 Home</button>
+  <!-- Replaced home button with Back button -->
+  <button class="back-button" onclick="goHome()">🔙 Back</button>
 
   <div class="dashboard">
     <button onclick="navigate('stockCount')">
-      <span class="icon">📦</span>
-      Stock Count
+      <span class="icon">📦</span> Stock Count
     </button>
-    <button onclick="navigate('parAlerts')">
-      <span class="icon">⚠️</span>
-      Par Level Alerts
-    </button>
+   
     <button onclick="navigate('wasteLog')">
-      <span class="icon">🗑️</span>
-      Waste Log
-    </button>
-    <button onclick="navigate('receiveDelivery')">
-      <span class="icon">📥</span>
-      Receive Delivery
-    </button>
-    <button onclick="navigate('recipeUsage')">
-      <span class="icon">📊</span>
-      Recipe Usage
+      <span class="icon">🗑️</span> Waste Log
     </button>
   </div>
 
@@ -59,6 +47,13 @@
         <td>Today</td>
         <td><button onclick="editItem(this)">✏️</button></td>
       </tr>
+      <tr>
+        <td>Onion</td>
+        <td>2</td>
+        <td>Kg</td>
+        <td>Today</td>
+        <td><button onclick="editItem(this)">✏️</button></td>
+      </tr>
     </tbody>
   </table>
 
@@ -74,26 +69,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>⚠️ Chicken stock below par (5 Kg &lt; 10 Kg)</td>
-        <td>
-          <button onclick="acknowledgeAlert(this)">🔘 Acknowledge</button>
-          <button onclick="navigate('stockCount')">🔄 Update Stock</button>
-        </td>
-      </tr>
-      <tr>
-        <td>⚠️ Onion stock below par (2 Kg &lt; 4 Kg)</td>
-        <td>
-          <button onclick="acknowledgeAlert(this)">🔘 Acknowledge</button>
-          <button onclick="navigate('stockCount')">🔄 Update Stock</button>
-        </td>
-      </tr>
+      <!-- Alerts will be dynamically generated here by JS -->
     </tbody>
   </table>
 
-  <p class="error" id="errorMsg">Invalid screen name selected!</p>
+  <p class="error" id="errorMsg" style="display:none;">Invalid screen name selected!</p>
 
   <script src="../Assets/Par Level Alerts.js"></script>
-    
 </body>
 </html>
