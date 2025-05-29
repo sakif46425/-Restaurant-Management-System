@@ -1,66 +1,87 @@
+/* Reset some defaults */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
+  padding: 40px 20px;
+  text-align: center;
+}
 
-    h1 {
-      text-align: center;
-      margin: 30px 0;
-      color: #333;
-    }
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
 
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      width: 90%;
-      max-width: 1000px;
-    }
+.home-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 30px;
+  transition: background-color 0.3s ease;
+}
 
-    .dashboard button {
-      padding: 20px;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      background-color: #fff;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: background-color 0.3s;
-      text-align: center;
-    }
+.home-button:hover {
+  background-color: #2980b9;
+}
 
-    .dashboard button:hover {
-      background-color: #e0f7fa;
-    }
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
 
-    .icon {
-      font-size: 32px;
-      display: block;
-      margin-bottom: 10px;
-    }
+.dashboard button {
+  background-color: #ffffff;
+  border: 2px solid #3498db;
+  padding: 20px 30px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 200px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
 
-    .error {
-      color: red;
-      margin-top: 10px;
-      display: none;
-    }
+.dashboard button:hover {
+  background-color: #3498db;
+  color: white;
+  transform: translateY(-5px);
+}
 
-    .home-button {
-      margin: 20px;
-      padding: 12px 24px;
-      font-size: 16px;
-      background-color: #00796b;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+.dashboard .icon {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
 
-    .home-button:hover {
-      background-color: #004d40;
-    }
+.error {
+  color: red;
+  font-weight: bold;
+  margin-top: 20px;
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .dashboard {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dashboard button {
+    width: 80%;
+  }
+}

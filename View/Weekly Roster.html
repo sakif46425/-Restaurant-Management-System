@@ -9,6 +9,24 @@
 <body>
   <h1>Weekly Roster</h1>
 
+  <!-- Staff Controls -->
+  <section>
+    <h3>Manage Staff</h3>
+    <input type="text" id="staffNameInput" placeholder="Enter staff name">
+    <button onclick="addStaff(document.getElementById('staffNameInput').value)">Add Staff</button>
+    <button onclick="removeStaff(document.getElementById('staffNameInput').value)">Remove Staff</button>
+  </section>
+
+  <!-- Shift Controls -->
+  <section>
+    <h3>Manage Shifts</h3>
+    <input type="text" id="roleInput" placeholder="Role (e.g. Waiter)">
+    <input type="text" id="timeInput" placeholder="Time (e.g. Morning)">
+    <button onclick="addShift(document.getElementById('roleInput').value, document.getElementById('timeInput').value)">Add Shift</button>
+    <button onclick="removeShift(document.getElementById('roleInput').value, document.getElementById('timeInput').value)">Remove Shift</button>
+  </section>
+
+  <!-- Roster Grid -->
   <div class="roster" id="rosterGrid">
     <!-- Grid header -->
     <div class="header"></div>
@@ -20,33 +38,38 @@
     <div class="header">Sat</div>
     <div class="header">Sun</div>
 
-    <!-- Staff rows -->
-    <div class="staff-name">Alice</div>
-    <div class="cell dropzone" data-name="Alice" data-day="Mon"></div>
-    <div class="cell dropzone" data-name="Alice" data-day="Tue"></div>
-    <div class="cell dropzone" data-name="Alice" data-day="Wed"></div>
-    <div class="cell dropzone" data-name="Alice" data-day="Thu"></div>
-    <div class="cell dropzone" data-name="Alice" data-day="Fri"></div>
-    <div class="cell dropzone" data-name="Alice" data-day="Sat"></div>
-    <div class="cell dropzone" data-name="Alice" data-day="Sun"></div>
+    <!-- Initial Staff -->
+    <div class="staff-name">Efty</div>
+    <div class="cell dropzone" data-name="Efty" data-day="Mon"></div>
+    <div class="cell dropzone" data-name="Efty" data-day="Tue"></div>
+    <div class="cell dropzone" data-name="Efty" data-day="Wed"></div>
+    <div class="cell dropzone" data-name="Efty" data-day="Thu"></div>
+    <div class="cell dropzone" data-name="Efty" data-day="Fri"></div>
+    <div class="cell dropzone" data-name="Efty" data-day="Sat"></div>
+    <div class="cell dropzone" data-name="Efty" data-day="Sun"></div>
 
-    <div class="staff-name">Bob</div>
-    <div class="cell dropzone" data-name="Bob" data-day="Mon"></div>
-    <div class="cell dropzone" data-name="Bob" data-day="Tue"></div>
-    <div class="cell dropzone" data-name="Bob" data-day="Wed"></div>
-    <div class="cell dropzone" data-name="Bob" data-day="Thu"></div>
-    <div class="cell dropzone" data-name="Bob" data-day="Fri"></div>
-    <div class="cell dropzone" data-name="Bob" data-day="Sat"></div>
-    <div class="cell dropzone" data-name="Bob" data-day="Sun"></div>
+    <div class="staff-name">Sumon</div>
+    <div class="cell dropzone" data-name="Sumon" data-day="Mon"></div>
+    <div class="cell dropzone" data-name="Sumon" data-day="Tue"></div>
+    <div class="cell dropzone" data-name="Sumon" data-day="Wed"></div>
+    <div class="cell dropzone" data-name="Sumon" data-day="Thu"></div>
+    <div class="cell dropzone" data-name="Sumon" data-day="Fri"></div>
+    <div class="cell dropzone" data-name="Sumon" data-day="Sat"></div>
+    <div class="cell dropzone" data-name="Sumon" data-day="Sun"></div>
   </div>
 
-  <!-- Draggable Shifts -->
+  <!-- Available Shifts -->
   <h3>Available Shifts</h3>
   <div id="shiftPool">
     <div class="shift morning" draggable="true" data-role="Waiter" data-time="Morning">Waiter - Morning</div>
     <div class="shift mid" draggable="true" data-role="Chef" data-time="Mid">Chef - Mid</div>
     <div class="shift evening" draggable="true" data-role="Waiter" data-time="Evening">Waiter - Evening</div>
   </div>
+  <!-- Action Buttons -->
+<div style="margin-top: 30px;">
+  <button onclick="confirmUpdate()">Update Status</button>
+  <button onclick="goBack()">Back</button>
+</div>
 
   <script src="../Assets/Weekly Roster.js"></script>
 </body>

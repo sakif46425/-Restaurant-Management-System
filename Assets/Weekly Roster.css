@@ -1,51 +1,132 @@
+/* General Page Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 20px;
-  }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fafb;
+  color: #333;
+  padding: 40px;
+  margin: 0;
+}
 
-  h1 {
-    text-align: center;
-  }
+h1, h3 {
+  text-align: center;
+  color: #1f2937;
+}
 
+/* Roster Grid Styles */
+.roster {
+  display: grid;
+  grid-template-columns: 120px repeat(7, 1fr);
+  gap: 2px;
+  margin: 30px auto;
+  max-width: 1000px;
+  border: 1px solid #ccc;
+  background-color: #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.header {
+  background-color: #111827;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 12px 8px;
+}
+
+.staff-name {
+  background-color: #f3f4f6;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  border-right: 1px solid #ccc;
+}
+
+.cell {
+  background-color: #f0f0f0;
+  min-height: 50px;
+  padding: 6px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #d1d5db;
+  transition: background-color 0.3s;
+}
+
+.cell.dropzone:hover {
+  background-color: #d1fae5;
+  cursor: pointer;
+}
+
+/* Shift Pool Styles */
+#shiftPool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.shift {
+  padding: 8px 14px;
+  border-radius: 6px;
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 500;
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.shift:active {
+  cursor: grabbing;
+  transform: scale(1.05);
+}
+
+.shift.morning {
+  background-color: #10b981; /* green */
+}
+
+.shift.mid {
+  background-color: #f59e0b; /* amber */
+}
+
+.shift.evening {
+  background-color: #ef4444; /* red */
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
+
+button:active {
+  background-color: #1e40af;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .roster {
-    display: grid;
-    grid-template-columns: 150px repeat(7, 1fr);
-    gap: 5px;
-    margin-top: 20px;
-  }
-
-  .roster .header, .roster .cell {
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    text-align: center;
-  }
-
-  .header {
-    background-color: #eee;
-    font-weight: bold;
-  }
-
-  .staff-name {
-    background-color: #d0e7ff;
-    font-weight: bold;
+    font-size: 12px;
+    overflow-x: auto;
   }
 
   .shift {
-    background-color: #c8f7c5;
-    border-radius: 5px;
-    margin: 2px;
-    cursor: grab;
-    padding: 5px;
+    font-size: 14px;
+    padding: 6px 10px;
   }
 
-  .morning { background-color: #fef3c7; }
-  .mid { background-color: #fde68a; }
-  .evening { background-color: #fca5a5; }
-
-  .dropzone {
-    min-height: 60px;
-    background-color: #f0f0f0;
+  button {
+    font-size: 14px;
   }
+}

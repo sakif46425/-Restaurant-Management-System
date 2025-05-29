@@ -1,39 +1,154 @@
+/* General Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body Style */
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    padding: 20px;
+  background-color: #f9f9f9;
+  padding: 30px;
+  color: #333;
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #222;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 12px 8px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+th {
+  background-color: #007BFF;
+  color: white;
+}
+
+td input[type="time"],
+td input[type="text"] {
+  width: 90%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Unavailable cell highlight */
+.unavailable {
+  background-color: #ffcccc !important;
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button#add-staff-btn {
+  background-color: #28a745;
+}
+
+button#add-staff-btn:hover {
+  background-color: #1e7e34;
+}
+
+button#update-btn {
+  background-color: #17a2b8;
+}
+
+button#update-btn:hover {
+  background-color: #117a8b;
+}
+
+button#back-btn {
+  background-color: #6c757d;
+}
+
+button#back-btn:hover {
+  background-color: #5a6268;
+}
+
+.remove-staff-btn {
+  background-color: #dc3545;
+}
+
+.remove-staff-btn:hover {
+  background-color: #c82333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
   }
 
-  h2 {
-    text-align: center;
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
   }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background: #fff;
-  }
-
-  th, td {
+  tr {
+    margin-bottom: 20px;
     border: 1px solid #ccc;
     padding: 10px;
-    text-align: center;
   }
 
-  th {
-    background: #eee;
+  td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
   }
 
-  .time-range {
+  td::before {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    width: 45%;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #555;
+  }
+
+  td:nth-of-type(1)::before { content: "Staff Name"; }
+  td:nth-of-type(2)::before { content: "Mon"; }
+  td:nth-of-type(3)::before { content: "Tue"; }
+  td:nth-of-type(4)::before { content: "Wed"; }
+  td:nth-of-type(5)::before { content: "Thu"; }
+  td:nth-of-type(6)::before { content: "Fri"; }
+  td:nth-of-type(7)::before { content: "Notes"; }
+  td:nth-of-type(8)::before { content: "Action"; }
+
+  td input {
     width: 100%;
   }
-
-  .unavailable {
-    background-color: #ffd6d6;
-  }
-
-  .notes-input {
-    width: 90%;
-    padding: 5px;
-  }
+}

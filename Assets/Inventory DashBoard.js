@@ -1,17 +1,23 @@
 function navigate(screen) {
-      const validScreens = ["stockCount", "parAlerts", "wasteLog", "receiveDelivery", "recipeUsage"];
-      const errorMsg = document.getElementById("errorMsg");
+  const screenMap = {
+    stockCount: "Stock Count.html",
+    parAlerts: "Par Level Alerts.html",
+    wasteLog: "Waste Log.html", // Make sure filename does NOT have extra space
+    receiveDelivery: "Receive Delivery.html",
+    recipeUsage: "Recipe Usage.html"
+  };
 
-      if (validScreens.includes(screen)) {
-        errorMsg.style.display = "none";
-        alert("Navigating to: " + screen);
-        // Replace alert with real navigation logic as needed
-      } else {
-        errorMsg.style.display = "block";
-      }
-    }
+  const errorMsg = document.getElementById("errorMsg");
 
-    function goHome() {
-      alert("Returning to Home Page");
-      // Add real navigation if needed
-    }
+  if (screenMap.hasOwnProperty(screen)) {
+    errorMsg.style.display = "none";
+    window.location.href = screenMap[screen];
+  } else {
+    errorMsg.style.display = "block";
+  }
+}
+
+function goHome() {
+  // Adjust this path to your actual home page if needed
+  window.location.href = "Home Dashboard.html";
+}

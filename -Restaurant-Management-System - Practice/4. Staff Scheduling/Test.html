@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Staff Scheduling - Restaurant Management</title>
+  <style>
+   /* Base Reset & Layout */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #f2f5f8, #ffffff);
+  padding: 30px;
+  color: #333;
+}
+
+/* Headings */
+h2, h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #2c3e50;
+}
+
+h3 {
+  font-size: 1.4rem;
+  color: #34495e;
+}
+
+/* Section Container */
+.section {
+  background-color: #ffffff;
+  padding: 25px;
+  margin: 30px auto;
+  border-radius: 12px;
+  max-width: 900px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease;
+}
+.section:hover {
+  transform: translateY(-3px);
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+th {
+  background-color: #ecf0f1;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.shift {
+  background-color: #d4edda;
+  color: #155724;
+  font-weight: bold;
+  border-left: 4px solid #28a745;
+  transition: background-color 0.3s ease;
+}
+.shift:hover {
+  background-color: #c3e6cb;
+}
+
+/* Form & Input */
+form {
+  margin-top: 10px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.2s ease;
+}
+input[type="text"]:focus {
+  border-color: #2d89ef;
+  outline: none;
+}
+
+/* Button */
+button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background-color: #2d89ef;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #1e70d1;
+}
+
+/* Shift Swap Board */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  background-color: #f0f3f6;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-size: 15px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+/* Chart Placeholder */
+.chart-placeholder {
+  background-color: #eef2f5;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7f8c8d;
+  font-size: 18px;
+  font-style: italic;
+  border-radius: 10px;
+  border: 2px dashed #bdc3c7;
+}
+
+  </style>
+</head>
+<body>
+
+  <h2>Restaurant Staff Scheduling</h2>
+
+  <!-- Weekly Roster -->
+  <div class="section">
+    <h3>Weekly Roster</h3>
+    <table>
+      <tr>
+        <th>Employee</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+        <th>Sun</th>
+      </tr>
+      <tr>
+        <td>John</td>
+        <td class="shift">10-6</td>
+        <td class="shift">10-6</td>
+        <td></td>
+        <td class="shift">12-8</td>
+        <td></td>
+        <td class="shift">2-10</td>
+        <td class="shift">10-4</td>
+      </tr>
+      <tr>
+        <td>Emily</td>
+        <td></td>
+        <td class="shift">9-5</td>
+        <td class="shift">9-5</td>
+        <td></td>
+        <td class="shift">11-7</td>
+        <td></td>
+        <td class="shift">12-6</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Availability Tracker -->
+  <div class="section">
+    <h3>Set Your Availability</h3>
+    <form>
+      <label>Monday: <input type="text" placeholder="e.g. 9am - 5pm"></label>
+      <label>Tuesday: <input type="text"></label>
+      <label>Wednesday: <input type="text"></label>
+      <label>Thursday: <input type="text"></label>
+      <label>Friday: <input type="text"></label>
+      <label>Saturday: <input type="text"></label>
+      <label>Sunday: <input type="text"></label>
+      <button type="button">Submit</button>
+    </form>
+  </div>
+
+  <!-- Shift Swap Board -->
+  <div class="section">
+    <h3>Shift Swap Board</h3>
+    <ul>
+      <li><strong>Emily</strong> wants to swap <em>Wed 9am - 5pm</em></li>
+      <li><strong>John</strong> offering <em>Sat 2pm - 10pm</em></li>
+    </ul>
+  </div>
+
+  <!-- Labor vs Sales Forecast -->
+  <div class="section">
+    <h3>Labor Cost vs Sales Forecast</h3>
+    <div class="chart-placeholder">
+      [ Chart Placeholder Here ]
+    </div>
+  </div>
+<script src="Test.js"></script>
+</body>
+</html>
