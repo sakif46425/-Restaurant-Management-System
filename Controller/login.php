@@ -1,47 +1,34 @@
 <?php
+error_reporting(E_ALL);
+require_once('../model/user_Model.php');
 session_start();
 
-// Get form data
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
-    $role = $_POST['role'];
+    $role = trim($_POST['role']);
 
-    // Basic validation
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "<script>alert('Invalid email format.'); window.history.back();</script>";
-        exit();
-    }
-
-    if (strlen($password) < 6) {
-        echo "<script>alert('Password must be at least 6 characters.'); window.history.back();</script>";
-        exit();
-    }
-
-    if (empty($role)) {
-        echo "<script>alert('Please select a role.'); window.history.back();</script>";
-        exit();
-    }
-
-    // Use external file for authentication logic
-    require_once 'auth.php';
-
-    // Check credentials using custom function
-    if (check_credentials($email, $password, $role)) {
-        $_SESSION['email'] = $email;
-        $_SESSION['role'] = $role;
-
-        // Redirect based on role
-        if ($role === "admin") {
-            header("Location: Home Dashboard.html");
-        } else {
-            echo "<script>alert('Login successful, but no redirect configured for this role.');</script>";
-        }
+    if ($email === "" || $password === "" || $role === "") {
+        echo "All fields are required!";
     } else {
-        echo "<script>alert('Incorrect email, password, or role.'); window.history.back();</script>";
+        $user = ['email' => $email, 'password' => $password, 'role' => $role];
+        $status = login($user);
+
+        if ($status) {
+            setcookie('status', 'true', time() + 3000, '/');
+            $_SESSION['email'] = $email;
+            $_SESSION['role'] = $role;
+
+            if ($role === 'admin') {
+                header('Location: ../view/Home Dashboard.html');
+            } else {
+                header('Location: ../view/dashboard.html');
+            }
+        } else {
+            echo "Invalid credentials!";
+        }
     }
 } else {
-    header("Location: login.html");
-    exit();
+    header('Location: ../view/login.html');
 }
 ?>

@@ -1,58 +1,71 @@
 <?php
 session_start();
 
-// Database connection (edit with your DB credentials)
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "Restuarant Management System";
-
-$conn = new mysqli($host, $user, $password, $db);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Handle POST request
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
 
     // Validate email
+    if (empty($email)) {
+        echo "Email is required!";
+        exit;
+    }
+
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $_SESSION['error'] = "Invalid email address.";
-        header("Location: forgot-password.php");
-        exit();
+        echo "Invalid email format!";
+        exit;
     }
 
-    // Check if email exists in users table
-    $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
+    // Connect to DB
+    $con = mysqli_connect('127.0.0.1', 'root', '', 'rms');
+    if (!$con) {
+        echo "Database connection failed: " . mysqli_connect_error();
+        exit;
+    }
 
-    if ($stmt->num_rows === 1) {
-        // Generate secure token
-        $token = bin2hex(random_bytes(50));
-        $expires = date("Y-m-d H:i:s", strtotime('+1 hour'));
+    // Check if user exists
+    $escapedEmail = mysqli_real_escape_string($con, $email);
+    $query = "SELECT id, full_name FROM users WHERE email = '$escapedEmail'";
+    $result = mysqli_query($con, $query);
 
-        // Store token in password_resets table
-        $stmt_insert = $conn->prepare("INSERT INTO password_resets (email, token, expires_at) VALUES (?, ?, ?)");
-        $stmt_insert->bind_param("sss", $email, $token, $expires);
-        $stmt_insert->execute();
+    if (mysqli_num_rows($result) === 0) {
+        echo "No account found with that email.";
+        mysqli_close($con);
+        exit;
+    }
 
-        // Set session variable
-        $_SESSION['reset_email'] = $email;
+    $row = mysqli_fetch_assoc($result);
+    $userId = $row['id'];
+    $fullName = $row['full_name'];
 
-       
-        // mail($email, "Password Reset", "Click here to reset your password: $reset_link");
+    // Generate token and expiration
+    $token = md5(uniqid(rand(), true));
+    $expiresAt = date('Y-m-d H:i:s', time() + 3600); // 1 hour from now
 
-        $_SESSION['success'] = "A password reset link has been sent to your email.";
-        header("Location: reset-password.php?token=$token");
+    // Remove old token if exists
+    mysqli_query($con, "DELETE FROM password_reset_tokens WHERE user_id = $userId");
+
+    // Insert token into DB
+    $insertQuery = "INSERT INTO password_reset_tokens (user_id, token, expires_at) VALUES ($userId, '$token', '$expiresAt')";
+    if (mysqli_query($con, $insertQuery)) {
+        // Prepare reset link
+        $resetLink = "http://localhost/YourProjectFolder/View/reset-password.html?token=$token";
+        $subject = "Password Reset Request";
+        $message = "Hi $fullName,\n\n";
+        $message .= "To reset your password, click the link below:\n$resetLink\n\n";
+        $message .= "This link will expire in 1 hour.\n";
+
+        // Send email
+        if (mail($email, $subject, $message)) {
+            echo "Reset link sent. Check your email.";
+        } else {
+            echo "Failed to send reset email.";
+        }
     } else {
-        $_SESSION['error'] = "Email not found.";
-        header("Location: forgot-password.php");
+        echo "Something went wrong. Try again.";
     }
 
-    $stmt->close();
-    $conn->close();
+    mysqli_close($con);
+} else {
+    echo "Invalid request.";
 }
 ?>

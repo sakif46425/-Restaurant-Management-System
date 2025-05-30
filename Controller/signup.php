@@ -1,80 +1,58 @@
 <?php
+
+
 session_start();
-require_once '../Model/DBsignup.php';
 
-$errors = [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get and sanitize form inputs
+    $fullName = trim($_POST['full-name']);
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+    $confirmPassword = trim($_POST['confirm-password']);
+    $userRole = trim($_POST['user-role']);
 
-// Check if form submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize inputs
-    $fullName = trim(htmlspecialchars($_POST["full-name"] ?? ''));
-    $email = trim(htmlspecialchars($_POST["email"] ?? ''));
-    $password = $_POST["password"] ?? '';
-    $confirmPassword = $_POST["confirm-password"] ?? '';
-    $userRole = $_POST["user-role"] ?? '';
-
-    // Validate inputs
-    if (empty($fullName)) {
-        $errors['full-name'] = "Full name is required.";
+    // Basic validation
+    if ($fullName === "" || $email === "" || $password === "" || $confirmPassword === "" || $userRole === "") {
+        echo "All fields are required!";
+        exit;
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = "Invalid email format.";
-    }
-
-    if (strlen($password) < 6) {
-        $errors['password'] = "Password must be at least 6 characters.";
+        echo "Invalid email format!";
+        exit;
     }
 
     if ($password !== $confirmPassword) {
-        $errors['confirm-password'] = "Passwords do not match.";
+        echo "Passwords do not match!";
+        exit;
     }
 
-    $validRoles = ['admin', 'editor', 'user'];
-    if (!in_array($userRole, $validRoles)) {
-        $errors['user-role'] = "Please select a valid user role.";
+    // Optional: Hash the password for security
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    // DB connection
+    $con = mysqli_connect('127.0.0.1', 'root', '', 'rms');
+
+    if (!$con) {
+        die("Database connection failed: " . mysqli_connect_error());
     }
 
-    // If no errors, proceed
-    if (empty($errors)) {
-        // Check if email already exists
-        $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $stmt->store_result();
+    // Insert into users table (adjust table/column names if different)
+    $sql = "INSERT INTO users (full_name, email, password, role) 
+            VALUES ('$fullName', '$email', '$hashedPassword', '$userRole')";
 
-        if ($stmt->num_rows > 0) {
-            $errors['email'] = "Email is already registered.";
-        } else {
-            // Hash password
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-            // Insert user into DB
-            $stmt = $conn->prepare("INSERT INTO users (full_name, email, password, role) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $fullName, $email, $hashedPassword, $userRole);
-
-            if ($stmt->execute()) {
-                // Redirect to verification page
-                header("Location: ../View/email-verification.html");
-                exit();
-            } else {
-                $errors['database'] = "Database error: " . $stmt->error;
-            }
-        }
-
-        $stmt->close();
+    if (mysqli_query($con, $sql)) {
+        header('Location: ../View/login.html');
+        exit;
+    } else {
+        echo "Error: " . mysqli_error($con);
+        // You may choose to redirect back to signup form here
     }
-    $conn->close();
+
+    mysqli_close($con);
+} else {
+    // If form was not submitted properly
+    header('Location: ../View/signup.html');
+    exit;
 }
 ?>
-
-<!-- Display errors (optional if handled in view) -->
-<?php if (!empty($errors)): ?>
-    <div class="error-box">
-        <ul>
-            <?php foreach ($errors as $field => $error): ?>
-                <li><strong><?= ucfirst($field) ?>:</strong> <?= $error ?></li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-<?php endif; ?>

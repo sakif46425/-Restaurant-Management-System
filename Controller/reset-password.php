@@ -1,53 +1,70 @@
 <?php
 session_start();
 
-// Example: Check if user is authenticated via session or reset token
-if (!isset($_SESSION['user_id'])) {
-    // Redirect to login if not authenticated
-    header("Location: login.php");
-    exit();
-}
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Database connection
+    $con = mysqli_connect('127.0.0.1', 'root', '', 'rms');
 
-// Assume you are using a MySQL database connection
-require_once 'db.php'; // Contains connection variable $conn
+    if (!$con) {
+        die("Database connection failed: " . mysqli_connect_error());
+    }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get token from URL
+    if (!isset($_GET['token'])) {
+        echo "Invalid or missing token!";
+        exit;
+    }
+
+    $token = mysqli_real_escape_string($con, $_GET['token']);
+
+    // Get and sanitize new passwords
     $newPassword = trim($_POST['new-password']);
     $confirmPassword = trim($_POST['confirm-password']);
-    $errors = [];
 
-    // Validation
-    if (strlen($newPassword) < 6) {
-        $errors[] = "Password must be at least 6 characters long.";
+    if ($newPassword === '' || $confirmPassword === '') {
+        echo "All fields are required!";
+        exit;
     }
 
     if ($newPassword !== $confirmPassword) {
-        $errors[] = "Passwords do not match.";
+        echo "Passwords do not match!";
+        exit;
     }
 
-    if (empty($errors)) {
-        // Hash the password
-        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+    // Check if token exists and not expired
+    $query = "SELECT user_id, expires_at FROM password_reset_tokens WHERE token = '$token'";
+    $result = mysqli_query($con, $query);
 
-        // Update password in database (assuming users table and user_id in session)
-        $stmt = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
-        $stmt->bind_param("si", $hashedPassword, $_SESSION['user_id']);
+    if (!$result || mysqli_num_rows($result) === 0) {
+        echo "Invalid or expired token!";
+        exit;
+    }
 
-        if ($stmt->execute()) {
-            // Optional: Destroy session and force re-login
-            session_destroy();
-            setcookie("auth_token", "", time() - 3600, "/"); // Remove auth cookie if used
-            echo "Password has been reset successfully. <a href='login.php'>Login again</a>";
-        } else {
-            echo "Error resetting password. Please try again.";
-        }
+    $row = mysqli_fetch_assoc($result);
+    $userId = $row['user_id'];
+    $expiresAt = strtotime($row['expires_at']);
 
-        $stmt->close();
+    if ($expiresAt < time()) {
+        echo "Token has expired!";
+        exit;
+    }
+
+    // Hash the new password
+    $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+    // Update password in users table
+    $update = "UPDATE users SET password = '$hashedPassword' WHERE id = $userId";
+    if (mysqli_query($con, $update)) {
+        // Delete the token
+        mysqli_query($con, "DELETE FROM password_reset_tokens WHERE user_id = $userId");
+        echo "Password has been reset successfully!";
     } else {
-        // Display validation errors
-        foreach ($errors as $error) {
-            echo "<p style='color:red;'>$error</p>";
-        }
+        echo "Failed to reset password.";
     }
+
+    mysqli_close($con);
+} else {
+    echo "Invalid request!";
 }
 ?>

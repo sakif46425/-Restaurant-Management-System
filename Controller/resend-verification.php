@@ -1,31 +1,69 @@
 <?php
-// Only accept POST requests
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+require_once '../Model/UserModel_verify_email.php'; // Adjust the path as needed
+session_start();
 
-    // Check if 'email' field is provided
-    if (!isset($_POST['email']) || empty(trim($_POST['email']))) {
-        http_response_code(400);
-        echo "Email field is required.";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['email']);
+
+    // Basic validation
+    if (empty($email)) {
+        echo "Email is required!";
         exit;
     }
 
-    // Sanitize email input
-    $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
-
-    // Validate email format
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        http_response_code(400);
-        echo "Invalid email format.";
+        echo "Invalid email format!";
         exit;
     }
 
-    // Simulate email sending (replace with real mail() if needed)
-    // For now, just return success message
-    http_response_code(200);
-    echo "Verification email has been resent to $email.";
+    // Database connection
+    $con = mysqli_connect('127.0.0.1', 'root', '', 'rms');
+    if (!$con) {
+        echo "Database connection failed: " . mysqli_connect_error();
+        exit;
+    }
 
+    // Load user
+    $userModel = new UserModel($con);
+    $user = $userModel->getUserByEmail($email);
+
+    if (!$user) {
+        echo "No user found with this email.";
+        exit;
+    }
+
+    if ($user['is_verified']) {
+        echo "Email is already verified!";
+        exit;
+    }
+
+    // Create token and expiration
+    $token = md5(uniqid(rand(), true)); // beginner-friendly way
+    $expiresAt = date('Y-m-d H:i:s', time() + 1800); // 30 minutes from now
+
+    // Store token
+    $success = $userModel->storeVerificationToken($user['id'], $token, $expiresAt);
+
+    if ($success) {
+        $verifyLink = "http://localhost/YourProjectFolder/Controller/verify-email.php?token=$token";
+        $subject = "Verify Your Email Address";
+        $message = "Hi {$user['full_name']},\n\n";
+        $message .= "Click the link below to verify your email:\n";
+        $message .= "$verifyLink\n\n";
+        $message .= "Note: This link will expire in 30 minutes.\n";
+
+        // Send email (simple version)
+        if (mail($email, $subject, $message)) {
+            echo "Verification email sent again!";
+        } else {
+            echo "Failed to send email.";
+        }
+    } else {
+        echo "Token generation failed.";
+    }
+
+    mysqli_close($con);
 } else {
-    http_response_code(405); // Method Not Allowed
-    echo "Only POST requests are allowed.";
+    echo "Invalid request.";
 }
 ?>
