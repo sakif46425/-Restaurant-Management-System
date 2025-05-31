@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     } else {
         echo "Error: " . mysqli_error($con);
-        // You may choose to redirect back to signup form here
+        
     }
 
     mysqli_close($con);

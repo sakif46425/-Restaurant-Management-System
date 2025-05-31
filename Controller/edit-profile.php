@@ -26,14 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Get user ID from session (assume user is logged in)
-    $userId = $_SESSION['user_id']; // Make sure you set this during login
+    $userId = $_SESSION['user_id']; 
 
     require_once('../Model/edit-profile-model.php');
 
     $result = updateProfile($userId, $fullName, $email, $phone, $address);
 
     if ($result === true) {
-        echo "success"; // You can redirect in JS on success
+        echo "success"; 
     } else {
         echo "Error updating profile: $result";
     }

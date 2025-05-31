@@ -2,7 +2,7 @@
 session_start();
 require_once 'AvatarModel.php';
 
-// For demo, set user_id = 1
+
 if (!isset($_SESSION['user_id'])) {
     $_SESSION['user_id'] = 1;
 }

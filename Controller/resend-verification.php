@@ -5,7 +5,7 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
 
-    // Basic validation
+    // validation
     if (empty($email)) {
         echo "Email is required!";
         exit;

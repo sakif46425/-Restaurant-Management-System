@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Include the model
-    require_once '../Model/UserModel.php';
+    require_once '../Model/Usermodel_update_password.php';
 
     // Create model object
     $userModel = new UserModel();
@@ -53,8 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($success) {
         echo "Password updated successfully!";
-        // You can redirect to profile if needed:
-        // header('Location: Profile view.html');
+     
         exit;
     } else {
         echo "Failed to update password.";
