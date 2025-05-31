@@ -1,38 +1,66 @@
 <?php
 session_start();
-include 'db_connect.php'; // make sure this connects to your DB
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $userId = $_SESSION['user_id']; // Assumes user ID is stored in session
-    $currentPassword = $_POST['currentPassword'];
-    $newPassword = $_POST['newPassword'];
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: ../View/login.html');
+    exit;
+}
 
-    // Fetch current password hash from database
-    $stmt = $conn->prepare("SELECT password FROM users WHERE id = ?");
-    $stmt->bind_param("i", $userId);
-    $stmt->execute();
-    $stmt->bind_result($storedHash);
-    $stmt->fetch();
-    $stmt->close();
+// Check if the form was submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get form inputs
+    $currentPassword = trim($_POST['currentPassword']);
+    $newPassword = trim($_POST['newPassword']);
+    $confirmPassword = trim($_POST['confirmPassword']);
+    $userId = $_SESSION['user_id']; // From session
 
-    // Verify current password
-    if (!password_verify($currentPassword, $storedHash)) {
-        echo "<script>alert('Current password is incorrect.'); window.history.back();</script>";
-        exit();
+    // Validate inputs
+    if ($currentPassword === "" || $newPassword === "" || $confirmPassword === "") {
+        echo "All fields are required!";
+        exit;
     }
 
-    // Hash and update the new password
-    $newHash = password_hash($newPassword, PASSWORD_DEFAULT);
-    $update = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
-    $update->bind_param("si", $newHash, $userId);
+    if (strlen($newPassword) < 6) {
+        echo "New password must be at least 6 characters.";
+        exit;
+    }
 
-    if ($update->execute()) {
-        echo "<script>alert('Password updated successfully.'); window.location.href='index.html';</script>";
+    if ($newPassword !== $confirmPassword) {
+        echo "New passwords do not match!";
+        exit;
+    }
+
+    // Include the model
+    require_once '../Model/UserModel.php';
+
+    // Create model object
+    $userModel = new UserModel();
+
+    // Get current hashed password from database
+    $storedHash = $userModel->getPasswordById($userId);
+
+    if (!$storedHash || !password_verify($currentPassword, $storedHash)) {
+        echo "Current password is incorrect!";
+        exit;
+    }
+
+    // Hash the new password
+    $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+    // Update password in the database
+    $success = $userModel->updateUserPassword($userId, $hashedNewPassword);
+
+    if ($success) {
+        echo "Password updated successfully!";
+        // You can redirect to profile if needed:
+        // header('Location: Profile view.html');
+        exit;
     } else {
-        echo "<script>alert('Failed to update password.'); window.history.back();</script>";
+        echo "Failed to update password.";
     }
-
-    $update->close();
-    $conn->close();
+} else {
+    header('Location: ../View/update-password.html');
+    exit;
 }
 ?>

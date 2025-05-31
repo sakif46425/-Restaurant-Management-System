@@ -1,48 +1,42 @@
 <?php
 session_start();
+require_once 'AvatarModel.php';
 
-$uploadDir = 'uploads/';
-$avatarFile = $uploadDir . 'avatar_' . session_id() . '.png';
-
-// Ensure uploads directory exists
-if (!file_exists($uploadDir)) {
-    mkdir($uploadDir, 0755, true);
+// For demo, set user_id = 1
+if (!isset($_SESSION['user_id'])) {
+    $_SESSION['user_id'] = 1;
 }
 
+$userId = $_SESSION['user_id'];
+$model = new AvatarModel($userId);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Handle reset request
+
     if (isset($_POST['action']) && $_POST['action'] === 'reset') {
-        if (file_exists($avatarFile)) {
-            if (unlink($avatarFile)) {
-                echo json_encode(['status' => 'success', 'message' => 'Avatar reset successfully.']);
-            } else {
-                echo json_encode(['status' => 'error', 'message' => 'Failed to delete avatar.']);
-            }
+        $result = $model->deleteAvatar();
+        if ($result) {
+            echo json_encode(['status' => 'success', 'message' => 'Avatar reset successfully']);
         } else {
-            echo json_encode(['status' => 'success', 'message' => 'No avatar to delete.']);
+            echo json_encode(['status' => 'error', 'message' => 'Failed to reset avatar']);
         }
         exit;
     }
 
-    // Handle avatar image upload
     if (isset($_POST['avatar'])) {
-        $data = $_POST['avatar'];
-        $data = str_replace('data:image/png;base64,', '', $data);
-        $data = str_replace(' ', '+', $data); // Replace spaces with +
-        $decodedData = base64_decode($data);
-
-        if ($decodedData === false) {
-            echo json_encode(['status' => 'error', 'message' => 'Invalid image data.']);
-            exit;
-        }
-
-        if (file_put_contents($avatarFile, $decodedData)) {
-            echo json_encode(['status' => 'success', 'file' => $avatarFile]);
+        $saved = $model->saveAvatar($_POST['avatar']);
+        if ($saved) {
+            echo json_encode(['status' => 'success', 'file' => $model->getAvatarPath()]);
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Failed to save avatar.']);
+            echo json_encode(['status' => 'error', 'message' => 'Failed to save avatar']);
         }
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'No avatar data received.']);
+        exit;
     }
+
+    echo json_encode(['status' => 'error', 'message' => 'No avatar data sent']);
+    exit;
+
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
+    exit;
 }
 ?>

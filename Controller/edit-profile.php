@@ -1,50 +1,44 @@
 <?php
+require_once('../Model/UserModel_edit_profile.php');
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize input
-    $fullName = trim(htmlspecialchars($_POST["fullName"] ?? ''));
-    $email = trim(htmlspecialchars($_POST["email"] ?? ''));
-    $phone = trim(htmlspecialchars($_POST["phone"] ?? ''));
-    $address = trim(htmlspecialchars($_POST["address"] ?? ''));
-
-    $errors = [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get and sanitize form inputs
+    $fullName = trim($_POST['fullName']);
+    $email = trim($_POST['email']);
+    $phone = trim($_POST['phone']);
+    $address = trim($_POST['address']);
 
     // Basic validation
-    if (empty($fullName) || empty($email) || empty($phone)) {
-        $errors[] = "Name, Email, and Phone are required.";
+    if ($fullName === "" || $email === "" || $phone === "") {
+        echo "Name, Email, and Phone are required.";
+        exit;
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email format.";
-    }
-
-    if (!preg_match("/^\+?[0-9]{10,14}$/", $phone)) {
-        $errors[] = "Invalid phone number format.";
-    }
-
-    if (empty($errors)) {
-        // Example: Save to session (you could also save to a database)
-        $_SESSION["profile"] = [
-            "fullName" => $fullName,
-            "email" => $email,
-            "phone" => $phone,
-            "address" => $address
-        ];
-
-        // Redirect or success message
-        echo "<script>alert('Profile updated successfully!'); window.location.href='index.html';</script>";
+        echo "Invalid email format.";
         exit;
+    }
+
+    if (!preg_match('/^\+?[0-9]{10,14}$/', $phone)) {
+        echo "Invalid phone number format.";
+        exit;
+    }
+
+    // Get user ID from session (assume user is logged in)
+    $userId = $_SESSION['user_id']; // Make sure you set this during login
+
+    require_once('../Model/edit-profile-model.php');
+
+    $result = updateProfile($userId, $fullName, $email, $phone, $address);
+
+    if ($result === true) {
+        echo "success"; // You can redirect in JS on success
     } else {
-        // Display errors
-        foreach ($errors as $err) {
-            echo "<p style='color:red;'>$err</p>";
-        }
-        echo "<a href='javascript:history.back()'>Go Back</a>";
+        echo "Error updating profile: $result";
     }
 } else {
-    // If accessed directly without POST
-    header("Location: login.html");
+    header('Location: ../View/edit-profile.html');
     exit;
 }
 ?>

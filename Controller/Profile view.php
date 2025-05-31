@@ -1,41 +1,20 @@
 <?php
-// Sample PHP validation code
 
-// Simulate fetching data (e.g., from database or session)
-$profileName = $_POST['name'] ?? '';
-$profileEmail = $_POST['email'] ?? '';
-$profilePhone = $_POST['phone'] ?? '';
+require_once('../Model/UserModel_Profile_view.php'); // Include the model to get user data
+session_start(); // Start the session
 
-$errors = [];
+// Only run if the form was submitted using POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get data sent from the form
+    $profileName = $_POST['name'] ?? 'No Name';
+    $profileEmail = $_POST['email'] ?? 'No Email';
+    $profilePhone = $_POST['phone'] ?? 'No Phone';
 
-// Validate name
-if (empty($profileName)) {
-    $errors[] = "Name is required.";
-} elseif (!preg_match("/^[a-zA-Z\s]+$/", $profileName)) {
-    $errors[] = "Name must contain only letters and spaces.";
-}
-
-// Validate email
-if (empty($profileEmail)) {
-    $errors[] = "Email is required.";
-} elseif (!filter_var($profileEmail, FILTER_VALIDATE_EMAIL)) {
-    $errors[] = "Invalid email format.";
-}
-
-// Validate phone
-if (empty($profilePhone)) {
-    $errors[] = "Phone number is required.";
-} elseif (!preg_match("/^[0-9]{10,15}$/", $profilePhone)) {
-    $errors[] = "Phone number must be between 10 to 15 digits.";
-}
-
-// Display errors or proceed
-if (!empty($errors)) {
-    foreach ($errors as $error) {
-        echo "<p style='color:red;'>$error</p>";
-    }
+    // Send data to the view
+    include '../View/view-profile.php';
 } else {
-    // Proceed with profile view or update
-    echo "<p style='color:green;'>Profile data is valid.</p>";
+    // If not POST request, go back to login page
+    header('Location: ../View/login.html');
+    exit;
 }
 ?>
