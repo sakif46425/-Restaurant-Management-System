@@ -45,8 +45,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
       alert("Redirecting for other roles not set yet.");
     }
 
-    // If you want to actually submit the form to the backend instead, use this:
-    // document.getElementById('login-form').submit();
+    
   }
 });
 
